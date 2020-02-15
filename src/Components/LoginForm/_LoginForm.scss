@@ -1,0 +1,13 @@
+.Login__form {
+  @extend %form-shared;
+  @extend %buttons-shared;
+}
+
+.Login__form {
+  border: 1px solid black;
+  border-radius: 5px;
+  box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  max-width: 900px;
+  background-color: $bg-color;
+}

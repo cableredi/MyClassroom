@@ -1,0 +1,49 @@
+.Classes__form-add,
+.Classes__form-update {
+  @extend %form-shared;
+}
+
+.Classes__form-add,
+.Classes__form-update {
+  border: 1px solid black;
+  border-radius: 5px;
+  box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  max-width: 900px;
+  background-color: $bg-color;
+}
+
+.classes__list {
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 20px 30px;
+  max-width: 300px;
+  box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  margin: 30px auto 0px auto;
+  max-width: 900px;
+}
+
+.classes__list-items {
+  margin: 10px 0;
+}
+
+.classes__list-button {
+  margin: 10px;
+  background-color: $bg-color;
+  padding: 5px;
+  border-radius: 5px;
+  box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.5);
+  text-transform: uppercase;
+}
+  
+.classes__list-button:hover,
+.classes__list-button:focus {
+  background-color: $toolbar-hover-color;
+  color: $text-hover-color;
+  box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.5);
+  font-weight: 600;
+  transition: 0.3s;
+  border-radius: 7px;
+}

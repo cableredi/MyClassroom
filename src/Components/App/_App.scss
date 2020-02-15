@@ -1,0 +1,62 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+a {
+  text-decoration: none;
+  color: $text-color;
+}
+
+a:hover,
+a:active {
+  color: $text-hover-color;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.App {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.section-page {
+  text-align: center;
+  width: 100%;
+  margin: 0 10px;
+}
+
+h1 {
+  font-size: 30px;
+  font-family: $font-stack;
+}
+
+h2 {
+  font-family: $font-stack;
+}
+
+@media (max-width: 400px) {
+	.sectionSpacer {
+    width: 100%;
+    height:75px;
+  }
+}
+
+@media (min-width: 401px) {
+	.sectionSpacer {
+    width: 100%;
+    height: 75px;
+  }
+}

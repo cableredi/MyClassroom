@@ -1,0 +1,219 @@
+.Calendar__icon {
+  font-family: 'Material Icons', serif;
+  font-style: normal;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1;
+  text-transform: none;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'liga';
+}
+
+.Calendar__header {
+  display: block;
+  width: 100%;
+  padding: 1.75em 0;
+  border-bottom: 1px solid $border-color;
+  background: $neutral-color;
+}
+
+
+/* GRID */
+
+.Calendar__row {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.Calendar__row-middle {
+  align-items: center;
+}
+
+.Calendar__col {
+  flex-grow: 1;
+  flex-basis: 0;
+  max-width: 100%;
+}
+
+.Calendar__col-start {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.Calendar__col-center {
+  justify-content: center;
+  text-align: center;
+}
+
+.Calendar__col-end {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+
+/* Calendar */
+
+.Calendar {
+  display: block;
+  position: relative;
+  width: 95%;
+  background: $neutral-color;
+  border: 1px solid $border-color;
+  margin: 0 auto;
+}
+
+.Calendar .Calendar__header {
+  text-transform: uppercase;
+  font-weight: 200;
+  font-size: 1.5em;
+  padding: 1.5em 0;
+  border-bottom: 1px solid $border-color;
+  font-family: $font-stack;
+}
+
+.Calendar .Calendar__header .Calendar__icon {
+  cursor: pointer;
+  transition: .15s ease-out;
+}
+
+.Calendar .Calendar__header .Calendar__icon:hover {
+  transform: scale(1.75);
+  transition: .25s ease-out;
+  color: $main-color;
+}
+
+.Calendar .Calendar__header .Calendar__icon:first-of-type {
+  margin-left: 1em;
+}
+
+.Calendar .Calendar__header .Calendar__icon:last-of-type {
+  margin-right: 1em;
+}
+
+.Calendar .Calendar__days {
+  text-transform: uppercase;
+  font-weight: 500;
+  color: $main-color;
+  font-size: 90%;
+  padding: .75em 0;
+  border-bottom: 1px solid $border-color;
+  font-family: $font-stack;
+}
+
+.Calendar .Calendar__body .Calendar__cell {
+  position: relative;
+  height: 5em;
+  border-right: 1px solid $border-color;
+  overflow: hidden;
+  cursor: pointer;
+  background: $neutral-color;
+  transition: 0.25s ease-out;
+}
+
+.Calendar .Calendar__body .Calendar__cell:hover {
+  background: $bg-color;
+  transition: 0.5s ease-out;
+}
+
+.Calendar .Calendar__body .selected {
+  border-left: 10px solid transparent;
+  border-image: linear-gradient(45deg, #1a8fff 0%,#53cbf1 40%);
+  border-image-slice: 1;
+}
+
+.Calendar .Calendar__body .Calendar__row {
+  border-bottom: 1px solid $border-color;
+}
+
+.Calendar .Calendar__body .Calendar__row:last-child {
+  border-bottom: none;
+}
+
+.Calendar .Calendar__body .Calendar__cell:last-child {
+  border-right: none;
+}
+
+.Calendar .Calendar__body .Calendar__cell .Calendar__number {
+  position: absolute;
+  font-size: 82.5%;
+  line-height: 1;
+  top: .75em;
+  right: .75em;
+  font-weight: 700;
+}
+
+.Calendar .Calendar__body .Calendar__disabled {
+  color: $text-color-light;
+  pointer-events: none;
+}
+
+.Calendar .Calendar__body .Calendar__cell .Calendar__bg {
+  font-weight: 700;
+  line-height: 1;
+  color: $main-color;
+  opacity: 0;
+  font-size: 8em;
+  position: absolute;
+  top: -.2em;
+  right: -.05em;
+  transition: .25s ease-out;
+}
+
+.Calendar .Calendar__body .Calendar__cell:hover .Calendar__bg, 
+.Calendar .Calendar__body .selected .bg  {
+  opacity: 0.05;
+  transition: .5s ease-in;
+}
+
+.Calendar .Calendar__body .Calendar__col {
+  flex-grow: 0;
+  flex-basis: calc(100%/7);
+  width: calc(100%/7);
+}
+
+.Calendar__cell .Calendar__assignments {
+  margin: 25px 10px 10px 10px;
+}
+
+.Calendar__more {
+  display: block;
+  border: 1px solid $main-color;
+  border-radius: 8px;
+  background-color: $main-color;
+  color: $neutral-color;
+  width: 30px;
+  text-align: center;
+  padding-right: 5px;
+}
+
+@media (max-width: 400px) {
+	.Calendar__cell li {
+    font-size: .6em;
+  }
+
+  .Calendar__cell .Calendar__assignments {
+    font-size: .70em;
+  }
+}
+
+@media (min-width: 401px) {
+  .Calendar__cell .Calendar__assignments {
+    font-size: .70em;
+  }
+}
+
+@media (min-width: 551px) {
+  .Calendar__cell .Calendar__assignments {
+    font-size: 1em;
+  }
+}
