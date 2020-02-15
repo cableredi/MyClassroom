@@ -1,6 +1,5 @@
 # MyClassroom
 
-## What can bedbugs do for you?
 My Classroom is a simple and effective way for teachers/professors/tutors/etc to effectively communicate to his/her students the upcoming assignments, tests, quizzes, projects, etc.
 
 My Classroom is easy to use
