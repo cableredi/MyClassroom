@@ -2,14 +2,16 @@ export default {
   "users": [
     {
       "user_id": 1,
-      "full_name": "MS. Teacher",
+      "first_name": "Mary",
+      "last_name": "Smith",
       "role": "Teacher",
       "user_name": "teacher",
       "password": "teacher",
     },
     {
       "user_id": 2,
-      "full_name": "",
+      "first_name": "Roger",
+      "last_name": "Hawkins",
       "role": "Student",
       "user_name": "student",
       "password": "student",

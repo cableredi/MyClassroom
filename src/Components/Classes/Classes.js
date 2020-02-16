@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MyClassroomContext from '../Context/MyClassroomContext';
+import PropTypes from 'prop-types';
 
 export default class Classes extends Component {
   static contextType = MyClassroomContext;
@@ -135,4 +136,12 @@ export default class Classes extends Component {
       </section>
     );
   }
+}
+
+Classes.defaultProps = {
+  classes: [],
+}
+
+Classes.propTypes = {
+  classes: PropTypes.array.isRequired,
 }

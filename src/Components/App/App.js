@@ -83,7 +83,6 @@ export default class App extends Component {
   }
 
   setClasses = classes => {
-    console.log('in app classes', classes)
     this.setState({
       classes
     })

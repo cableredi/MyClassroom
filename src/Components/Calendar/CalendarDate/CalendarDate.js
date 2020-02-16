@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { format, isAfter } from 'date-fns';
+import PropTypes from 'prop-types';
 
 function checkDate(currentDate) {
   return (
@@ -39,10 +40,7 @@ export default function CalendarDate(props) {
         </li>
       </NavLink>
     )
-  })
-
-  
-  
+  })  
 
   /***************************************
    *  Main Render
@@ -65,4 +63,12 @@ export default function CalendarDate(props) {
 
     </section>
   )
+}
+
+CalendarDate.defaultProps = {
+  assignments: [],
+}
+
+CalendarDate.propTypes = {
+  assignments: PropTypes.array.isRequired,
 }

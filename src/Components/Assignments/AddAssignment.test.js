@@ -1,13 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import App from './App';
+import AddAssignment from './AddAssignment';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
+
+  const classesProps = [];
+
   ReactDOM.render(
     <BrowserRouter>
-      <App />
+      <AddAssignment classes={classesProps} />
     </BrowserRouter>,
     div
   );

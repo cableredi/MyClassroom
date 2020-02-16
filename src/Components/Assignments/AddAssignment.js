@@ -3,6 +3,7 @@ import MyClassroomContext from '../Context/MyClassroomContext';
 import ValidateError from '../ValidateError/ValidateError';
 import config from '../../config';
 import { format } from 'date-fns';
+import PropTypes from 'prop-types';
 
 const Required = () => (
   <span className='form__required'>*</span>
@@ -23,7 +24,7 @@ export default class AddAssignment extends Component {
         touched: false
       },
       due_date: {
-        value: new Date(this.props.match.params.selectedDate) || '',
+        value: new Date(this.props.match.params.selectedDate) || new Date(),
         touched: false
       },
       title: {
@@ -328,4 +329,12 @@ export default class AddAssignment extends Component {
       </section>
     )
   }
+}
+
+AddAssignment.defaultProps = {
+  classes: [],
+}
+
+AddAssignment.propTypes = {
+  classes: PropTypes.array.isRequired,
 }

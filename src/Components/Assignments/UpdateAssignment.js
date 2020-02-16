@@ -3,6 +3,7 @@ import MyClassroomContext from '../Context/MyClassroomContext';
 import ValidateError from '../ValidateError/ValidateError';
 import config from '../../config';
 import { format } from 'date-fns';
+import PropTypes from 'prop-types';
 
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
@@ -325,7 +326,7 @@ export default class UpdateAssignment extends Component {
                 type="text"
                 name="due_date"
                 id="due_date"
-                value={this.state.due_date.value}
+                value={format(new Date(this.state.due_date.value), 'MM/dd/yyyy')}
                 placeholder="Due Date"
                 onChange={e => this.updateDueDate(e.target.value)}
                 required
@@ -418,4 +419,14 @@ export default class UpdateAssignment extends Component {
       </section>
     )
   }
+}
+
+UpdateAssignment.defaultProps = {
+  classes: [],
+  assignment: {}
+}
+
+UpdateAssignment.propTypes = {
+  classes: PropTypes.array.isRequired,
+  assignment: PropTypes.object.isRequired
 }

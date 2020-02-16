@@ -27,7 +27,11 @@ export default class RegistrationForm extends Component {
         value: "",
         touched: false
       },
-      full_name: {
+      first_name: {
+        value: "",
+        touched: false
+      },
+      last_name: {
         value: "",
         touched: false
       },
@@ -50,10 +54,19 @@ export default class RegistrationForm extends Component {
     });
   }
 
-  updateFullName(full_name) {
+  updateFirstName(first_name) {
     this.setState({ 
-      full_name: { 
-        value: full_name, 
+      first_name: { 
+        value: first_name, 
+        touched: true 
+      } 
+    });
+  }
+
+  updateLastName(last_name) {
+    this.setState({ 
+      last_name: { 
+        value: last_name, 
         touched: true 
       } 
     });
@@ -89,18 +102,20 @@ export default class RegistrationForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    const { full_name, role, user_name, password } = e.target;
+    const { first_name, last_name, role, user_name, password } = e.target;
 
     this.setState({ error: null })
 
     AuthApiService.postUser({
       user_name: user_name.value,
       password: password.value,
-      full_name: full_name.value,
+      first_name: first_name.value,
+      last_name: last_name.value,
       role: role.value,
     })
       .then(user => {
-        full_name.value = ''
+        first_name.value = ''
+        last_name.value = ''
         user_name.value = ''
         role.value = ''
         password.value = ''
@@ -126,13 +141,25 @@ export default class RegistrationForm extends Component {
     return { error: false, message: '' }
   }
 
-  validateFullName() {
-    const fullName = this.state.full_name.value.trim();
+  validateFirstName() {
+    const firstName = this.state.first_name.value.trim();
 
-    if (fullName.length === 0) {
-      return { error: true, message: 'Full Name is Required' }
-    } else if (fullName.length < 3) {
-      return { error: true, message: "Full Name must be at least 3 characters long" };
+    if (firstName.length === 0) {
+      return { error: true, message: 'First Name is Required' }
+    } else if (firstName.length < 3) {
+      return { error: true, message: "First Name must be at least 3 characters long" };
+    }
+
+    return { error: false, message: '' }
+  }
+
+  validateLastName() {
+    const lastName = this.state.last_name.value.trim();
+
+    if (lastName.length === 0) {
+      return { error: true, message: 'Last Name is Required' }
+    } else if (lastName.length < 3) {
+      return { error: true, message: "Last Name must be at least 3 characters long" };
     }
 
     return { error: false, message: '' }
@@ -179,12 +206,13 @@ export default class RegistrationForm extends Component {
     let registrationButtonDisabled = true;
 
     const UserNameError = this.validateUserName();
-    const FullNameError = this.validateFullName();
+    const FirstNameError = this.validateFirstName();
+    const LastNameError = this.validateLastName();
     const RoleError = this.validateRole();
     const PasswordError = this.validatePassword();
     const ConfirmPasswordError = this.validateConfirmPassword();
 
-    if (!UserNameError.error && !FullNameError.error && !RoleError.error && !PasswordError.error && !ConfirmPasswordError) {
+    if (!UserNameError.error && !FirstNameError.error && !LastNameError.error && !RoleError.error && !PasswordError.error && !ConfirmPasswordError) {
       registrationButtonDisabled = false;
     }
 
@@ -218,21 +246,6 @@ export default class RegistrationForm extends Component {
             <li>{this.state.user_name.touched && <ValidateError message={UserNameError.message} />}</li>
 
             <li>
-              <label htmlFor='full_name'>
-                Your name
-                <Required />
-              </label>
-              <input
-                name='full_name'
-                type='text'
-                required
-                id='full_name'
-                onChange={e => this.updateFullName(e.target.value)}
-              />
-            </li>
-            <li>{this.state.full_name.touched && <ValidateError message={FullNameError.message} />}</li>
-
-            <li>
               <label htmlFor='password'>
                 Password
                 <Required />
@@ -261,6 +274,36 @@ export default class RegistrationForm extends Component {
               />
             </li>
             <li>{this.state.confirm_password.touched && <ValidateError message={ConfirmPasswordError.message} />}</li>
+
+            <li>
+              <label htmlFor='first_name'>
+                First name
+                <Required />
+              </label>
+              <input
+                name='first_name'
+                type='text'
+                required
+                id='first_name'
+                onChange={e => this.updateFirstName(e.target.value)}
+              />
+            </li>
+            <li>{this.state.first_name.touched && <ValidateError message={FirstNameError.message} />}</li>
+
+            <li>
+              <label htmlFor='last_name'>
+                Last name
+                <Required />
+              </label>
+              <input
+                name='last_name'
+                type='text'
+                required
+                id='last_name'
+                onChange={e => this.updateLastName(e.target.value)}
+              />
+            </li>
+            <li>{this.state.last_name.touched && <ValidateError message={LastNameError.message} />}</li>
 
             <li>
               <label htmlFor='role'>

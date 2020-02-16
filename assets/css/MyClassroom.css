@@ -171,7 +171,6 @@ code {
   padding: 5px;
   border: 1px solid #bebebe;
   border-radius: 5px;
-  width: 80%;
   max-width: 500px;
 }
 
@@ -181,7 +180,7 @@ code {
 .Assignments__form .flex-outer li textarea,
 .Classes__form-add .flex-outer li textarea,
 .Classes__form-update .flex-outer li textarea {
-  max-height: 50px;
+  max-height: 200px;
 }
 
 .Registration__form .button, .Login__form .button, .Assignments__form .button,
@@ -377,7 +376,7 @@ code {
   position: fixed;
   top: 0;
   left: 0;
-  width: 70%;
+  width: 50%;
   max-width: 400px;
   z-index: 200;
   -webkit-transform: translateX(-100%);
@@ -398,9 +397,10 @@ code {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  margin-top: 20px;
 }
 
 .side-drawer a {
@@ -506,7 +506,6 @@ ul {
 
 .section-page {
   text-align: center;
-  width: 100%;
   margin: 0 10px;
 }
 
@@ -676,6 +675,10 @@ h2 {
   background: #f9f9f9;
   -webkit-transition: 0.5s ease-out;
   transition: 0.5s ease-out;
+}
+
+.Calendar .Calendar__body .Calendar__prevDate {
+  background: rgba(192, 192, 192, 0.15);
 }
 
 .Calendar .Calendar__body .selected {

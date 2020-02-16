@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import { NavLink } from 'react-router-dom';
 import MyClassroomContext from '../../Context/MyClassroomContext';
+
 import {
   format, endOfMonth, startOfWeek, addDays, startOfMonth, endOfWeek,
-  isSameMonth, isSameDay, compareAsc, addMonths, subMonths
+  isSameMonth, isSameDay, compareAsc, addMonths, subMonths, isPast, isToday
 } from 'date-fns'
+
+import PropTypes from 'prop-types';
 
 export default class Calendar extends Component {
   static contextType = MyClassroomContext;
@@ -84,7 +87,12 @@ export default class Calendar extends Component {
               !isSameMonth(day, monthStart)
                 ? "disabled"
                 : isSameDay(day, selectedDate) ? "selected" : ""
-              }`}
+              }
+              ${
+                isPast(day) && !isToday(day)
+                  ? "Calendar__prevDate"
+                  : ""
+                }`}
             key={day}
           >
             <NavLink
@@ -165,7 +173,6 @@ export default class Calendar extends Component {
    *  Main Render
    ***************************************/
   render() {
-    console.log(this.props.assignments)
     return (
       <section className='Calendar'>
         {this.renderHeader()}
@@ -174,4 +181,12 @@ export default class Calendar extends Component {
       </section>
     );
   }
+}
+
+Calendar.defaultProps = {
+  assignments: [],
+}
+
+Calendar.propTypes = {
+  applications: PropTypes.array,
 }
