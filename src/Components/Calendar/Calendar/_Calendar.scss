@@ -112,7 +112,7 @@
 
 .Calendar .Calendar__body .Calendar__cell {
   position: relative;
-  height: 5em;
+  height: 6em;
   border-right: 1px solid $border-color;
   overflow: hidden;
   cursor: pointer;
@@ -198,6 +198,7 @@
   width: 30px;
   text-align: center;
   padding-right: 5px;
+  margin-top: 5px;
 }
 
 @media (max-width: 400px) {
@@ -206,7 +207,7 @@
   }
 
   .Calendar__cell .Calendar__assignments {
-    font-size: .70em;
+    font-size: .60em;
   }
 }
 

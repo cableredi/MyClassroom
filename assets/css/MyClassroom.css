@@ -11,24 +11,23 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
-.Registration__form, .Login__form, .Assignments__form, .Classes__form-add,
-.Classes__form-update {
+.Registration__form, .Login__form, .Assignments__form, .Class__form {
   text-align: center;
   margin: 0 auto;
 }
 
-.Registration__form input, .Login__form input, .Assignments__form input, .Classes__form-add input, .Classes__form-update input {
+.Registration__form input, .Login__form input, .Assignments__form input, .Class__form input {
   font-size: 16px;
 }
 
-.Registration__form label, .Login__form label, .Assignments__form label, .Classes__form-add label, .Classes__form-update label {
+.Registration__form label, .Login__form label, .Assignments__form label, .Class__form label {
   display: inline-block;
   text-align: right;
   margin-right: 0.5em;
   vertical-align: center;
 }
 
-.Registration__form select, .Login__form select, .Assignments__form select, .Classes__form-add select, .Classes__form-update select {
+.Registration__form select, .Login__form select, .Assignments__form select, .Class__form select {
   display: inline-block;
   color: #444;
   line-height: 1.1;
@@ -51,15 +50,15 @@ code {
   background-size: .65em auto, 100%;
 }
 
-.Registration__form select::-ms-expand, .Login__form select::-ms-expand, .Assignments__form select::-ms-expand, .Classes__form-add select::-ms-expand, .Classes__form-update select::-ms-expand {
+.Registration__form select::-ms-expand, .Login__form select::-ms-expand, .Assignments__form select::-ms-expand, .Class__form select::-ms-expand {
   display: none;
 }
 
-.Registration__form select:hover, .Login__form select:hover, .Assignments__form select:hover, .Classes__form-add select:hover, .Classes__form-update select:hover {
+.Registration__form select:hover, .Login__form select:hover, .Assignments__form select:hover, .Class__form select:hover {
   border-color: #888;
 }
 
-.Registration__form select:focus, .Login__form select:focus, .Assignments__form select:focus, .Classes__form-add select:focus, .Classes__form-update select:focus {
+.Registration__form select:focus, .Login__form select:focus, .Assignments__form select:focus, .Class__form select:focus {
   border-color: #aaa;
   -webkit-box-shadow: 0 0 1px 3px rgba(59, 153, 252, 0.7);
           box-shadow: 0 0 1px 3px rgba(59, 153, 252, 0.7);
@@ -68,49 +67,45 @@ code {
   outline: none;
 }
 
-.Registration__form select option, .Login__form select option, .Assignments__form select option, .Classes__form-add select option, .Classes__form-update select option {
+.Registration__form select option, .Login__form select option, .Assignments__form select option, .Class__form select option {
   font-weight: normal;
 }
 
-.Registration__form .form__form, .Login__form .form__form, .Assignments__form .form__form, .Classes__form-add .form__form, .Classes__form-update .form__form {
+.Registration__form .form__form, .Login__form .form__form, .Assignments__form .form__form, .Class__form .form__form {
   border: 1px solid black;
 }
 
-.Registration__form .form__fields, .Login__form .form__fields, .Assignments__form .form__fields, .Classes__form-add .form__fields, .Classes__form-update .form__fields {
+.Registration__form .form__fields, .Login__form .form__fields, .Assignments__form .form__fields, .Class__form .form__fields {
   border: 1px solid black;
   padding: 10px;
 }
 
-.Registration__form .form__button-group, .Login__form .form__button-group, .Assignments__form .form__button-group, .Classes__form-add .form__button-group, .Classes__form-update .form__button-group {
+.Registration__form .form__button-group, .Login__form .form__button-group, .Assignments__form .form__button-group, .Class__form .form__button-group {
   margin: 20px auto;
 }
 
-.Registration__form .form__hint, .Login__form .form__hint, .Assignments__form .form__hint, .Classes__form-add .form__hint, .Classes__form-update .form__hint {
+.Registration__form .form__hint, .Login__form .form__hint, .Assignments__form .form__hint, .Class__form .form__hint {
   font-style: italic;
   font-size: .8rem;
 }
 
-.Registration__form .required, .Login__form .required, .Assignments__form .required, .Classes__form-add .required, .Classes__form-update .required,
+.Registration__form .required, .Login__form .required, .Assignments__form .required, .Class__form .required,
 .Registration__form .form__error,
 .Login__form .form__error,
 .Assignments__form .form__error,
-.Classes__form-add .form__error,
-.Classes__form-update .form__error,
+.Class__form .form__error,
 .Registration__form .form__required,
 .Login__form .form__required,
 .Assignments__form .form__required,
-.Classes__form-add .form__required,
-.Classes__form-update .form__required,
+.Class__form .form__required,
 .Registration__form .form__input-error,
 .Login__form .form__input-error,
 .Assignments__form .form__input-error,
-.Classes__form-add .form__input-error,
-.Classes__form-update .form__input-error,
+.Class__form .form__input-error,
 .Registration__form .form__input-error-large,
 .Login__form .form__input-error-large,
 .Assignments__form .form__input-error-large,
-.Classes__form-add .form__input-error-large,
-.Classes__form-update .form__input-error-large {
+.Class__form .form__input-error-large {
   font-style: italic;
   font-size: .8rem;
   color: red;
@@ -120,13 +115,11 @@ code {
 .Registration__form .form__input-error,
 .Login__form .form__input-error,
 .Assignments__form .form__input-error,
-.Classes__form-add .form__input-error,
-.Classes__form-update .form__input-error,
+.Class__form .form__input-error,
 .Registration__form .form__input-error-large,
 .Login__form .form__input-error-large,
 .Assignments__form .form__input-error-large,
-.Classes__form-add .form__input-error-large,
-.Classes__form-update .form__input-error-large {
+.Class__form .form__input-error-large {
   margin: 0 auto;
 }
 
@@ -134,12 +127,11 @@ code {
 .Registration__form .form__required,
 .Login__form .form__required,
 .Assignments__form .form__required,
-.Classes__form-add .form__required,
-.Classes__form-update .form__required {
+.Class__form .form__required {
   vertical-align: super;
 }
 
-.Registration__form .flex-outer li, .Login__form .flex-outer li, .Assignments__form .flex-outer li, .Classes__form-add .flex-outer li, .Classes__form-update .flex-outer li {
+.Registration__form .flex-outer li, .Login__form .flex-outer li, .Assignments__form .flex-outer li, .Class__form .flex-outer li {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -151,23 +143,21 @@ code {
   margin: 10px 0;
 }
 
-.Registration__form .flex-outer li label, .Login__form .flex-outer li label, .Assignments__form .flex-outer li label, .Classes__form-add .flex-outer li label, .Classes__form-update .flex-outer li label,
+.Registration__form .flex-outer li label, .Login__form .flex-outer li label, .Assignments__form .flex-outer li label, .Class__form .flex-outer li label,
 .Registration__form .flex-outer li p,
 .Login__form .flex-outer li p,
 .Assignments__form .flex-outer li p,
-.Classes__form-add .flex-outer li p,
-.Classes__form-update .flex-outer li p {
+.Class__form .flex-outer li p {
   padding: 8px;
   font-weight: 600;
   text-transform: uppercase;
 }
 
-.Registration__form .flex-outer li input, .Login__form .flex-outer li input, .Assignments__form .flex-outer li input, .Classes__form-add .flex-outer li input, .Classes__form-update .flex-outer li input,
+.Registration__form .flex-outer li input, .Login__form .flex-outer li input, .Assignments__form .flex-outer li input, .Class__form .flex-outer li input,
 .Registration__form .flex-outer li textarea,
 .Login__form .flex-outer li textarea,
 .Assignments__form .flex-outer li textarea,
-.Classes__form-add .flex-outer li textarea,
-.Classes__form-update .flex-outer li textarea {
+.Class__form .flex-outer li textarea {
   padding: 5px;
   border: 1px solid #bebebe;
   border-radius: 5px;
@@ -178,8 +168,7 @@ code {
 .Registration__form .flex-outer li textarea,
 .Login__form .flex-outer li textarea,
 .Assignments__form .flex-outer li textarea,
-.Classes__form-add .flex-outer li textarea,
-.Classes__form-update .flex-outer li textarea {
+.Class__form .flex-outer li textarea {
   max-height: 200px;
 }
 
@@ -662,7 +651,7 @@ h2 {
 
 .Calendar .Calendar__body .Calendar__cell {
   position: relative;
-  height: 5em;
+  height: 6em;
   border-right: 1px solid #bebebe;
   overflow: hidden;
   cursor: pointer;
@@ -756,6 +745,7 @@ h2 {
   width: 30px;
   text-align: center;
   padding-right: 5px;
+  margin-top: 5px;
 }
 
 @media (max-width: 400px) {
@@ -763,7 +753,7 @@ h2 {
     font-size: .6em;
   }
   .Calendar__cell .Calendar__assignments {
-    font-size: .70em;
+    font-size: .60em;
   }
 }
 
@@ -871,8 +861,7 @@ h2 {
   background-color: #f9f9f9;
 }
 
-.Classes__form-add,
-.Classes__form-update {
+.Class__form {
   border: 1px solid black;
   border-radius: 5px;
   -webkit-box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.5);
@@ -882,42 +871,46 @@ h2 {
   background-color: #f9f9f9;
 }
 
-.classes__list {
+.classes ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.classes li {
   border: 1px solid black;
   border-radius: 5px;
   margin: 10px;
   padding: 20px 30px;
   max-width: 300px;
+  background: #f9f9f9;
   -webkit-box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
           box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
-  text-align: center;
-  margin: 30px auto 0px auto;
-  max-width: 900px;
+  color: #777;
 }
 
-.classes__list-items {
-  margin: 10px 0;
+.class-list__name {
+  font-weight: 800;
 }
 
-.classes__list-button {
-  margin: 10px;
-  background-color: #f9f9f9;
-  padding: 5px;
-  border-radius: 5px;
-  -webkit-box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.5);
-          box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.5);
-  text-transform: uppercase;
+.class-list_items {
+  margin: 5px 0;
+  text-align: left;
 }
 
-.classes__list-button:hover,
-.classes__list-button:focus {
-  background-color: white;
-  color: #1a8fff;
-  -webkit-box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.5);
-          box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.5);
-  font-weight: 600;
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
-  border-radius: 7px;
+.class-list_items-header {
+  font-weight: 700;
 }
 /*# sourceMappingURL=MyClassroom.css.map */

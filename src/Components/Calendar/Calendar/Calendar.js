@@ -80,7 +80,6 @@ export default class Calendar extends Component {
     while (day <= endDate) {
       for (let i = 0; i < 7; i++) {
         formattedDate = format(day, dateFormat);
-        const cloneDay = day;
         days.push(
           <div
             className={`Calendar__col Calendar__cell ${
@@ -97,7 +96,7 @@ export default class Calendar extends Component {
           >
             <NavLink
               className={'calendar-date'}
-              to={`calendar/${cloneDay}`}
+              to={`calendar/${day}`}
             >
               <span className="Calendar__number">{formattedDate}</span>
               <span className="Calendar__bg">{formattedDate}</span>
@@ -127,7 +126,7 @@ export default class Calendar extends Component {
     const assignments = this.props.assignments;
   
     const display = assignments.filter(assignment => {
-      return (compareAsc(day, assignment.due_date) === 0)
+      return (compareAsc(day, new Date(assignment.due_date)) === 0)
     })
   
     function showAssignment(display) {

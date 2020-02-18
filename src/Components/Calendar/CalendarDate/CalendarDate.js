@@ -20,6 +20,7 @@ function checkDate(currentDate) {
 };
 
 export default function CalendarDate(props) {
+console.log('calendarDate props', props.assignments)
   const { assignments } = props;
   const currentDate = props.match.params.date;
 
@@ -47,7 +48,7 @@ export default function CalendarDate(props) {
    ***************************************/
   return (
     <section className='section-page'>
-      <h1 className='calendar-date__header'>{format(new Date(currentDate), 'EE, LLL ee, yyyy')}</h1>
+      <h1 className='calendar-date__header'>{format(new Date(currentDate), 'EE, MMM dd, yyyy')}</h1>
       <NavLink
         className={'calendar-date__return'}
         to='/calendar'

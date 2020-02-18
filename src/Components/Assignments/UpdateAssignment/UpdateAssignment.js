@@ -1,42 +1,50 @@
 import React, { Component } from "react";
-import MyClassroomContext from '../Context/MyClassroomContext';
-import ValidateError from '../ValidateError/ValidateError';
-import config from '../../config';
+import MyClassroomContext from '../../Context/MyClassroomContext';
+import ValidateError from '../../ValidateError/ValidateError';
+import config from '../../../config';
 import { format } from 'date-fns';
 import PropTypes from 'prop-types';
+
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 const Required = () => (
   <span className='form__required'>*</span>
 );
 
-export default class AddAssignment extends Component {
+export default class UpdateAssignment extends Component {
   static contextType = MyClassroomContext;
 
   constructor(props) {
     super(props);
     this.state = {
+      deleteError: {
+        value: false,
+        message: ''
+      },
+
       assignment_id: {
-        value: '',
+        value: this.props.assignment.assignment_id || '',
         touched: false
       },
       class_id: {
-        value: '',
+        value: this.props.assignment.class_id || '',
         touched: false
       },
       due_date: {
-        value: new Date(this.props.match.params.selectedDate) || new Date(),
+        value: this.props.assignment.due_date || new Date(),
         touched: false
       },
       title: {
-        value: '',
+        value: this.props.assignment.title || '',
         touched: false
       },
       notes: {
-        value: '',
+        value: this.props.assignment.notes || '',
         touched: false
       },
       category: {
-        value: '',
+        value: this.props.assignment.category || '',
         touched: false
       },
     }
@@ -90,48 +98,47 @@ export default class AddAssignment extends Component {
     })
   }
 
-  /*****************************************************************/
-  /* Add Application to Database, update state, return to Calendar */
-  /*****************************************************************/
+  /********************************************************************/
+  /* Update Application to Database, update state, return to Calendar */
+  /********************************************************************/
   handleSubmit = e => {
     e.preventDefault();
 
+    this.setState({ error: null })
+    const { assignment_id } = this.props.match.params
+
     //put fields in object
-    const assignment = {
-      assignment_id: 12, //static only
-      class_name: this.state.class_id.value,  // static only -> real use class_id
+    const updatedAssignment = {
+      assignment_id: parseInt(assignment_id),
+      class_id: this.state.class_id.value,
       due_date: this.state.due_date.value,
       title: this.state.title.value,
       notes: this.state.notes.value,
       category: this.state.category.value,
     };
 
-    //Static Only
-    this.context.addAssignment(assignment);
-    this.props.history.push('/calendar');
-
-    // update database, state, and go back one screen
-    /*
-    fetch(config.API_ENDPOINT_APPLICATIONS, {
-      method: 'POST',
+    // update database, state, and go back to calendar
+    fetch(config.API_ENDPOINT_ASSIGNMENTS + `/${assignment_id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(updatedAssignment),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${config.API_KEY}`
       },
-      body: JSON.stringify(assignment)
     })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(response.status)
-        }
-        return response.json()
+      .then(res => {
+        if (!res.ok)
+          return res.json().then(error => Promise.reject(error))
+        return res.json()
       })
-      .then((data) => {
-        this.context.AddAssignment(data);
+      .then((updatedAssignment) => {
+        this.context.updateAssignment(updatedAssignment);
         this.props.history.push('/calendar');
       })
-      .catch(error => this.setState({ error }))
-      */
+      .catch(error => {
+        console.error(error)
+        this.setState({ error })
+      })
   }
 
   /*****************/
@@ -141,14 +148,69 @@ export default class AddAssignment extends Component {
     this.props.history.goBack()
   };
 
+  /*****************************/
+  /* Handle form Delete Button */
+  /*****************************/
+  handleDelete = () => {
+    fetch(config.API_ENDPOINT_ASSIGNMENTS + `/${this.state.assignment_id.value}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${config.API_KEY}`
+      }
+    })
+      .then(response => {
+        if (!response.ok) {
+          return response.json().then(error => {
+            throw error
+          })
+        }
+        this.props.history.push('/calendar')
+        this.context.deleteAssignment(this.state.assignment_id.value);
+      })
+      .catch(error => {
+        console.error(error)
+      })
+  }
+
+  /******************/
+  /* Confirm Delete */
+  /******************/
+  confirmDelete = (e) => {
+    confirmAlert({
+      title: 'Are you sure...',
+      message: '...You wish to delete this assignment?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => this.handleDelete(e)
+        },
+        {
+          label: 'No',
+          onClick: () => ''
+        }
+      ]
+    });
+  };
+
   /************************/
   /* Validate Form Fields */
   /************************/
   validateClassId() {
     const classId = this.state.class_id.value;
 
-    if (classId.length === 0) {
+    if (!classId) {
       return { error: true, message: 'Class Name is Required' }
+    }
+
+    return { error: false, message: '' }
+  }
+
+  validateDueDate() {
+    const dueDate = this.state.due_date.value;
+
+    if (dueDate.length === 0) {
+      return { error: true, message: 'Due Date is Required' }
     }
 
     return { error: false, message: '' }
@@ -186,18 +248,16 @@ export default class AddAssignment extends Component {
     return { error: false, message: '' }
   }
 
-
   render() {
-    const { selectedDate } = this.props.match.params;
-
     let assignmentButtonDisabled = true;
 
     const ClassIdError = this.validateClassId();
+    const DueDateError = this.validateDueDate();
     const TitleError = this.validateTitle();
     const NotesError = this.validateNotes();
     const CategoryError = this.validateCategory();
 
-    if (!ClassIdError.error && !TitleError.error && !NotesError.error && !CategoryError.error) {
+    if (!ClassIdError.error && !DueDateError.error && !TitleError.error && !NotesError.error && !CategoryError.error) {
       assignmentButtonDisabled = false;
     }
 
@@ -212,7 +272,7 @@ export default class AddAssignment extends Component {
 
     return (
       <section className='section-page'>
-        <h1>Add Assignment</h1>
+        <h1>Update Assignment</h1>
         <form
           className="Assignments__form"
           onSubmit={this.handleSubmit}
@@ -220,6 +280,11 @@ export default class AddAssignment extends Component {
           <div className="required">* Required Fields</div>
 
           <ul className="flex-outer">
+            <li>
+              <input type="hidden" name="assignment_id" value={this.state.assignment_id.value} />
+              {this.state.deleteError.value && <ValidateError message={this.state.deleteError.message} class='form__input-error-large' />}
+            </li>
+
             <li>
               <label htmlFor="class_id">
                 Class Name:
@@ -231,10 +296,12 @@ export default class AddAssignment extends Component {
                 className='formSelect'
                 aria-label="Select a Class"
                 aria-required="true"
+                value={this.state.class_id.value || ''}
                 onChange={e => this.updateClassId(e.target.value)}
               >
                 <option value=''>Class... </option>
                 {classOptions}
+                
               </select>
             </li>
             <li>{this.state.class_id.touched && <ValidateError message={ClassIdError.message} />}</li>
@@ -248,12 +315,42 @@ export default class AddAssignment extends Component {
                 type="text"
                 name="due_date"
                 id="due_date"
+                value={format(new Date(this.state.due_date.value), 'MM/dd/yyyy')}
                 placeholder="Due Date"
-                value={format(new Date(selectedDate), 'MM/dd/yyyy')}
                 onChange={e => this.updateDueDate(e.target.value)}
                 required
               />
             </li>
+            <li>{this.state.due_date.touched && <ValidateError message={DueDateError.message} />}</li>
+
+            <li>
+              <label htmlFor="category">
+                Category:
+               <Required />
+              </label>
+              <select
+                id='category'
+                name='category'
+                className='formSelect'
+                aria-label="Select a Category"
+                aria-required="true"
+                value={this.state.category.value}
+                onChange={e => this.updateCategory(e.target.value)}
+              >
+                <option value="">Category... </option>
+                <option value="Essay">Essay</option>
+                <option value="Final">Final</option>
+                <option value="Homework">Homework</option>
+                <option value="Lab">Lab</option>
+                <option value="MidTerm">MidTerm</option>
+                <option value="Presentation">Presentation</option>
+                <option value="Project">Project</option>
+                <option value="Quiz">Quiz</option>
+                <option value="Test">Test</option>
+                <option value="Other">Other</option>
+              </select>
+            </li>
+            <li>{this.state.category.touched && <ValidateError message={CategoryError.message} />}</li>
 
             <li>
               <label htmlFor="title">
@@ -264,6 +361,7 @@ export default class AddAssignment extends Component {
                 type="text"
                 name="title"
                 id="title"
+                value={this.state.title.value}
                 placeholder="Assignment Title"
                 onChange={e => this.updateTitle(e.target.value)}
                 required
@@ -279,49 +377,32 @@ export default class AddAssignment extends Component {
               <textarea
                 name="notes"
                 id="notes"
+                value={this.state.notes.value}
                 onChange={e => this.updateNotes(e.target.value)}
                 required
               />
             </li>
             <li>{this.state.notes.touched && <ValidateError message={NotesError.message} />}</li>
 
-            <li>
-              <label htmlFor="category">
-                Category:
-               <Required />
-              </label>
-              <select
-                id='category'
-                name='category'
-                className='formSelect'
-                aria-label="Select a Category"
-                aria-required="true"
-                value={this.state.category.value || ''}
-                onChange={e => this.updateCategory(e.target.value)}
-                required
-              >
-                <option value="">Category... </option>
-                <option value="homework">Homework</option>
-                <option value="quiz">Quiz</option>
-                <option value="exam">Exam</option>
-                <option value="midTerm">Mid-Term</option>
-                <option value="final">Final</option>
-                <option value="project">Project</option>
-                <option value="paper">Paper</option>
-                <option value="presentation">Presentation</option>
-              </select>
-            </li>
-            <li>{this.state.category.touched && <ValidateError message={CategoryError.message} />}</li>
-
             <li className="form__button-group">
-              <button type="button" onClick={this.handleClickCancel}>
+              <button
+                type="button"
+                onClick={this.handleClickCancel}>
                 Cancel
               </button>
+              {'  '}
               <button
                 type="submit"
                 disabled={assignmentButtonDisabled}
               >
-                Save
+                Update
+              </button>
+              {'  '}
+              <button
+                type="button"
+                onClick={e => this.confirmDelete(e)}
+              >
+                Delete
               </button>
             </li>
           </ul>
@@ -331,10 +412,12 @@ export default class AddAssignment extends Component {
   }
 }
 
-AddAssignment.defaultProps = {
+UpdateAssignment.defaultProps = {
   classes: [],
+  assignment: {}
 }
 
-AddAssignment.propTypes = {
+UpdateAssignment.propTypes = {
   classes: PropTypes.array.isRequired,
+  assignment: PropTypes.object.isRequired
 }

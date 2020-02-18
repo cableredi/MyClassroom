@@ -6,7 +6,6 @@ const MyClassroomContext = React.createContext({
   updateAssignment: () => {},
   deleteAssignment: () => {},
   classes: [],
-  setClasses: () => {},
   addClass: () => {},
   updateClass: () => {},
   deleteClass: () => {},
