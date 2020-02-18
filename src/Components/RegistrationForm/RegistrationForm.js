@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ValidateError from '../ValidateError/ValidateError';
-import AuthApiService from '../Services/auth-api-service';
+//import AuthApiService from '../Services/auth-api-service';
 
 const Required = () => (
   <span className='form__required'>*</span>
@@ -106,6 +106,7 @@ export default class RegistrationForm extends Component {
 
     this.setState({ error: null })
 
+    /*
     AuthApiService.postUser({
       user_name: user_name.value,
       password: password.value,
@@ -124,6 +125,7 @@ export default class RegistrationForm extends Component {
       .catch(res => {
         this.setState({ error: res.error })
       })
+      */
   }
 
   /*********************/

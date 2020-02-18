@@ -22,12 +22,6 @@ import Classes from '../Classes/ClassList/ClassList';
 import AddClass from '../Classes/AddClass/AddClass';
 import UpdateClass from '../Classes/UpdateClass/UpdateClass';
 
-import TokenService from '../Services/token-service';
-import AuthApiService from '../Services/auth-api-service';
-import IdleService from '../Services/idle-service';
-import PublicOnlyRoute from '../Helpers/PublicOnlyRoute';
-import PrivateOnlyRoute from '../Helpers/PrivateOnlyRoute';
-
 import { compareAsc } from 'date-fns'
 import UpdateAssignment from '../Assignments/UpdateAssignment/UpdateAssignment';
 
@@ -126,31 +120,6 @@ export default class App extends Component {
   /* ComponentDidMount           */
   /*******************************/
   componentDidMount() {
-    /*
-      set the function (callback) to call when a user goes idle
-      we'll set this to logout a user when they're idle
-    */
-    IdleService.setIdleCallback(this.logoutFromIdle)
-
-    /* if a user is logged in */
-    if (TokenService.hasAuthToken()) {
-      /*
-        tell the idle service to register event listeners
-        the event listeners are fired when a user does something, e.g. move their mouse
-        if the user doesn't trigger one of these event listeners,
-          the idleCallback (logout) will be invoked
-      */
-      IdleService.regiserIdleTimerResets()
-
-      /*
-        Tell the token service to read the JWT, looking at the exp value
-        and queue a timeout just before the token expires
-      */
-      TokenService.queueCallbackBeforeExpiry(() => {
-        /* the timoue will call this callback just before the token expires */
-        AuthApiService.postRefreshToken()
-      })
-    }
 
     //Get all assignments from DB and update state
     fetch(config.API_ENDPOINT_ASSIGNMENTS, {
@@ -187,37 +156,6 @@ export default class App extends Component {
       .catch(error => this.setState({ error }))
   }
 
-  /*******************************/
-  /* componentWillUnmount        */
-  /*******************************/
-  componentWillUnmount() {
-    /*
-      when the app unmounts,
-      stop the event listeners that auto logout (clear the token from storage)
-    */
-    IdleService.unRegisterIdleResets()
-    /*
-      and remove the refresh endpoint request
-    */
-    TokenService.clearCallbackBeforeExpiry()
-  }
-
-  /*******************************/
-  /* Logout from Idle            */
-  /*******************************/
-  logoutFromIdle = () => {
-    /* remove the token from localStorage */
-    TokenService.clearAuthToken()
-    /* remove any queued calls to the refresh endpoint */
-    TokenService.clearCallbackBeforeExpiry()
-    /* remove the timeouts that auto logout when idle */
-    IdleService.unRegisterIdleResets()
-    /*
-      react won't know the token has been removed from local storage,
-      so we need to tell React to rerender
-    */
-    this.forceUpdate()
-  }
 
   /*******************************/
   /* Render                      */
@@ -262,7 +200,7 @@ export default class App extends Component {
               component={Landing}
             />
 
-            <PrivateOnlyRoute
+            <Route
               exact path='/calendar'
               component={(routeProps) =>
                 <Calendar
@@ -272,7 +210,7 @@ export default class App extends Component {
               }
             />
 
-            <PrivateOnlyRoute
+            <Route
               exact path='/calendar/:date'
               component={(routeProps) =>
                 <CalendarDate
@@ -284,7 +222,7 @@ export default class App extends Component {
               }
             />
 
-            <PrivateOnlyRoute
+            <Route
               exact path='/addAssignment/:selectedDate'
               component={(routeProps) =>
                 <AddAssignment
@@ -294,7 +232,7 @@ export default class App extends Component {
               }
             />
 
-            <PrivateOnlyRoute
+            <Route
               exact path='/updateAssignment/:assignment_id'
               component={(routeProps) =>
                 <UpdateAssignment
@@ -305,7 +243,7 @@ export default class App extends Component {
               }
             />
 
-            <PrivateOnlyRoute
+            <Route
               exact path='/classes'
               render={(routeProps) =>
                 <Classes
@@ -315,7 +253,7 @@ export default class App extends Component {
               }
             />
 
-            <PrivateOnlyRoute
+            <Route
               exact path='/addClass'
               component={(routeProps) =>
                 <AddClass
@@ -324,7 +262,7 @@ export default class App extends Component {
               }
             />
 
-            <PrivateOnlyRoute
+            <Route
               exact path='/updateClass/:class_id'
               component={(routeProps) =>
                 <UpdateClass
@@ -334,12 +272,12 @@ export default class App extends Component {
               }
             />
 
-            <PublicOnlyRoute
+            <Route
               path={'/login'}
               component={LoginForm}
             />
 
-            <PublicOnlyRoute
+            <Route
               path={'/registration'}
               component={RegistrationForm}
             />
