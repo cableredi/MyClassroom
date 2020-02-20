@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import MyClassroomContext from '../../Context/MyClassroomContext';
 import ValidateError from '../../ValidateError/ValidateError';
+import TokenService from '../../../services/token-service';
 import config from '../../../config';
 import { format } from 'date-fns';
 import PropTypes from 'prop-types';
@@ -109,7 +110,7 @@ export default class AddAssignment extends Component {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${config.API_KEY}`
+        'Authorization': `basic ${TokenService.getAuthToken()}`
       },
       body: JSON.stringify(assignment)
     })

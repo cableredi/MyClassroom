@@ -20,7 +20,6 @@ function checkDate(currentDate) {
 };
 
 export default function CalendarDate(props) {
-console.log('calendarDate props', props.assignments)
   const { assignments } = props;
   const currentDate = props.match.params.date;
 

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import MyClassroomContext from '../../Context/MyClassroomContext';
 import ValidateError from '../../ValidateError/ValidateError';
+import TokenService from '../../../services/token-service';
 import config from '../../../config';
 
 const Required = () => (
@@ -15,10 +16,6 @@ export default class AddClass extends Component {
     this.state = {
       class_name: {
         value: '',
-        touched: false
-      },
-      user_id: {
-        value: 1,
         touched: false
       },
       days: {
@@ -98,7 +95,6 @@ export default class AddClass extends Component {
     //put fields in object
     const newSchoolClass = {
       class_name: this.state.class_name.value,
-      user_id: this.state.user_id.value,
       days: this.state.days.value,
       times: this.state.times.value,
       location: this.state.location.value,
@@ -110,7 +106,7 @@ export default class AddClass extends Component {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${config.API_KEY}`
+        'Authorization': `basic ${TokenService.getAuthToken()}`,
       },
       body: JSON.stringify(newSchoolClass)
     })
@@ -168,10 +164,6 @@ export default class AddClass extends Component {
           <div className="required">* Required Fields</div>
 
           <ul className="flex-outer">
-            <li>
-              <input type="hidden" name="user_id" value={this.state.user_id.value} />
-            </li>
-
             <li>
               <label htmlFor="class_name">
                 Class Name:

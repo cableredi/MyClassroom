@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MyClassroomContext from '../../Context/MyClassroomContext';
 import ValidateError from '../../ValidateError/ValidateError';
+import TokenService from '../../../services/token-service';
 import config from '../../../config';
 import PropTypes from 'prop-types';
 
@@ -177,7 +178,7 @@ export default class UpdateClass extends Component {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${config.API_KEY}`
+        'Authorization': `basic ${TokenService.getAuthToken()}`,
       }
     })
       .then(response => {
@@ -244,7 +245,7 @@ export default class UpdateClass extends Component {
 
     return (
       <section className='section-page'>
-        <h1>Update Application</h1>
+        <h1>Update Class</h1>
 
         <form
           className="Class__form"

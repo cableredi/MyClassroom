@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-//import DUMMYDATA from '../../dummy-data';
-
 import MyClassroomContext from '../Context/MyClassroomContext';
 import config from '../../config';
 
@@ -21,6 +19,10 @@ import AddAssignment from '../Assignments/AddAssignment/AddAssignment';
 import Classes from '../Classes/ClassList/ClassList';
 import AddClass from '../Classes/AddClass/AddClass';
 import UpdateClass from '../Classes/UpdateClass/UpdateClass';
+
+import TokenService from '../../services/token-service';
+import PrivateRoute from '../Helpers/PrivateRoute';
+import PublicOnlyRoute from '../Helpers/PublicOnlyRoute';
 
 import { compareAsc } from 'date-fns'
 import UpdateAssignment from '../Assignments/UpdateAssignment/UpdateAssignment';
@@ -57,7 +59,6 @@ export default class App extends Component {
   }
 
   updateAssignment = updatedAssignment => {
-    console.log('updatedAssign', updatedAssignment, this.state.assignments.find(a => a.assignment_id === updatedAssignment.assignment_id))
     this.setState({
       assignments: this.state.assignments.map(assign =>
         (assign.assignment_id !== Number(updatedAssignment.assignment_id)) ? assign : Object.assign({}, assign, updatedAssignment)
@@ -126,7 +127,7 @@ export default class App extends Component {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${config.API_KEY}`
+        'Authorization': `basic ${TokenService.getAuthToken()}`,
       }
     })
       .then(response => {
@@ -143,7 +144,7 @@ export default class App extends Component {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${config.API_KEY}`
+        'Authorization': `basic ${TokenService.getAuthToken()}`,
       }
     })
       .then(response => {
@@ -200,7 +201,7 @@ export default class App extends Component {
               component={Landing}
             />
 
-            <Route
+            <PrivateRoute
               exact path='/calendar'
               component={(routeProps) =>
                 <Calendar
@@ -210,7 +211,7 @@ export default class App extends Component {
               }
             />
 
-            <Route
+            <PrivateRoute
               exact path='/calendar/:date'
               component={(routeProps) =>
                 <CalendarDate
@@ -222,7 +223,7 @@ export default class App extends Component {
               }
             />
 
-            <Route
+            <PrivateRoute
               exact path='/addAssignment/:selectedDate'
               component={(routeProps) =>
                 <AddAssignment
@@ -232,7 +233,7 @@ export default class App extends Component {
               }
             />
 
-            <Route
+            <PrivateRoute
               exact path='/updateAssignment/:assignment_id'
               component={(routeProps) =>
                 <UpdateAssignment
@@ -243,9 +244,9 @@ export default class App extends Component {
               }
             />
 
-            <Route
+            <PrivateRoute
               exact path='/classes'
-              render={(routeProps) =>
+              component={(routeProps) =>
                 <Classes
                   classes={this.state.classes}
                   {...routeProps}
@@ -253,7 +254,7 @@ export default class App extends Component {
               }
             />
 
-            <Route
+            <PrivateRoute
               exact path='/addClass'
               component={(routeProps) =>
                 <AddClass
@@ -262,7 +263,7 @@ export default class App extends Component {
               }
             />
 
-            <Route
+            <PrivateRoute
               exact path='/updateClass/:class_id'
               component={(routeProps) =>
                 <UpdateClass
@@ -272,12 +273,12 @@ export default class App extends Component {
               }
             />
 
-            <Route
+            <PublicOnlyRoute
               path={'/login'}
               component={LoginForm}
             />
 
-            <Route
+            <PublicOnlyRoute
               path={'/registration'}
               component={RegistrationForm}
             />
