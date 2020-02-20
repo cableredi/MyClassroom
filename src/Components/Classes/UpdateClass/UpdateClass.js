@@ -147,7 +147,7 @@ export default class UpdateClass extends Component {
       body: JSON.stringify(updatedSchoolClass),
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${config.API_KEY}`
+        'Authorization': `bearer ${TokenService.getAuthToken()}`,
       },
     })
       .then(res => {
@@ -188,8 +188,8 @@ export default class UpdateClass extends Component {
             throw error
           })
         }
-        this.props.history.push('/classes')
         this.context.deleteClass(this.state.class_id.value);
+        this.props.history.push('/classes')
       })
       .catch(error => {
         console.error(error)

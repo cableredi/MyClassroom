@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import TokenService from '../../Services/token-service';
 import AuthApiService from '../../Services/auth-api-service';
 import ValidateError from '../ValidateError/ValidateError';
 
@@ -46,26 +45,8 @@ export default class LoginForm extends Component {
   }
 
   /***********************/
-  /* handleSubmitBasicAuth */
+  /* handleSubmitJWTAuth */
   /***********************/
-  handleSubmitBasicAuth = e => {
-    e.preventDefault();
-
-    this.setState({ error: null });
-
-    const loginCredentials = {
-      user_name: this.state.user_name.value,
-      password: this.state.password.value
-    };
-
-    TokenService.saveAuthToken(
-      TokenService.makeBasicAuthToken(loginCredentials.user_name, loginCredentials.password)
-    );
-
-    this.props.onLoginSuccess();
-
-  };
-
   handleSubmitJwtAuth = ev => {
     ev.preventDefault()
     this.setState({ error: null })
@@ -78,7 +59,6 @@ export default class LoginForm extends Component {
       .then(res => {
         user_name.value = '';
         password.value = '';
-        TokenService.saveAuthToken(res.authToken);
         this.props.onLoginSuccess();
       })
       .catch(res => {

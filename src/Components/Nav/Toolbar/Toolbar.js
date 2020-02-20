@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom';
 import TokenService from '../../../Services/token-service';
+import IdleService from '../../../Services/idle-service';
 import myClassroomLogo from '../../Images/Background.svg';
 
 import DrawerToggleButton from '../SideDrawer/DrawerToggleButton';
@@ -8,6 +9,10 @@ import DrawerToggleButton from '../SideDrawer/DrawerToggleButton';
 export default class Toolbar extends Component {
   handleLogoutClick = () => {
     TokenService.clearAuthToken();
+
+    /* when logging out, clear the callbacks to the refresh api and idle auto logout */
+    TokenService.clearCallbackBeforeExpiry()
+    IdleService.unRegisterIdleResets()
   }
 
   renderLoginLink() {
