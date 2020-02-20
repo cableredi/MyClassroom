@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ValidateError from '../ValidateError/ValidateError';
+import AuthApiService from '../../Services/auth-api-service';
 
 const Required = () => (
   <span className='form__required'>*</span>
@@ -45,29 +46,29 @@ export default class RegistrationForm extends Component {
   /* Update Form State */
   /*********************/
   updateUserName(user_name) {
-    this.setState({ 
-      user_name: { 
-        value: user_name, 
-        touched: true 
-      } 
+    this.setState({
+      user_name: {
+        value: user_name,
+        touched: true
+      }
     });
   }
 
   updateFirstName(first_name) {
-    this.setState({ 
-      first_name: { 
-        value: first_name, 
-        touched: true 
-      } 
+    this.setState({
+      first_name: {
+        value: first_name,
+        touched: true
+      }
     });
   }
 
   updateLastName(last_name) {
-    this.setState({ 
-      last_name: { 
-        value: last_name, 
-        touched: true 
-      } 
+    this.setState({
+      last_name: {
+        value: last_name,
+        touched: true
+      }
     });
   }
 
@@ -87,11 +88,11 @@ export default class RegistrationForm extends Component {
   }
 
   updateRole(role) {
-    this.setState({ 
-      role: { 
-        value: role, 
-        touched: true 
-      } 
+    this.setState({
+      role: {
+        value: role,
+        touched: true
+      }
     });
   }
 
@@ -103,8 +104,27 @@ export default class RegistrationForm extends Component {
 
     const { first_name, last_name, role, user_name, password } = e.target;
 
-    this.setState({ error: null })
+    this.setState({ error: null });
 
+    AuthApiService.postUser({
+      user_name: user_name.value,
+      password: password.value,
+      first_name: first_name.value,
+      last_name: last_name.value,
+      role: role.value,
+    })
+      .then(user => {
+        first_name.value = ''
+        last_name.value = ''
+        role.value = ''
+        user_name.value = ''
+        password.value = ''
+        
+        this.props.onRegistrationSuccess()
+      })
+      .catch(res => {
+        this.setState({ error: res.error })
+      })
   }
 
   /*********************/
@@ -147,15 +167,18 @@ export default class RegistrationForm extends Component {
   }
 
   validatePassword() {
+    const REGEX_UPPER_LOWER_NUMBER_SPECIAL = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&])[\S]+/;
     const newPassword = this.state.password.value.trim();
 
     if (newPassword.length === 0) {
       return { error: true, message: "Password is required" };
-    } else if (newPassword.length < 6 || newPassword.length > 72) {
-      return { error: true, message: "Password must be between 6 and 72 characters long" };
-    } else if (!newPassword.match(/[0-9]/)) {
-      return { error: true, message: "Password must contain at least one number" };
-    }
+    } else if (newPassword.length < 8 || newPassword.length > 72) {
+      return { error: true, message: "Password must be between 8 and 72 characters long" };
+    } else if (newPassword.startsWith(' ') || newPassword.endsWith(' ')) {
+      return { error: true, message: "Password must not start or end with empty spacesr" };
+    } else if (!REGEX_UPPER_LOWER_NUMBER_SPECIAL.test(newPassword)) {
+      return { error: true, message: 'Password must contain one upper case, lower case, number and special character'};
+    };
 
     return { error: false, message: '' }
   }
@@ -183,7 +206,7 @@ export default class RegistrationForm extends Component {
 
   render() {
     const { error } = this.state;
-    
+
     let registrationButtonDisabled = true;
 
     const UserNameError = this.validateUserName();
@@ -193,140 +216,143 @@ export default class RegistrationForm extends Component {
     const PasswordError = this.validatePassword();
     const ConfirmPasswordError = this.validateConfirmPassword();
 
-    if (!UserNameError.error && !FirstNameError.error && !LastNameError.error && !RoleError.error && !PasswordError.error && !ConfirmPasswordError) {
-      registrationButtonDisabled = false;
-    }
+    console.log('errors', UserNameError, FirstNameError, LastNameError, RoleError, PasswordError, ConfirmPasswordError);
+
+    //if (!UserNameError.error && 
+    //  !FirstNameError.error && 
+    //  !LastNameError.error && 
+    //  !RoleError.error && 
+    //  !PasswordError.error && 
+    //  !ConfirmPasswordError) {
+        registrationButtonDisabled = false;
+    //}
+    console.log('registration button', registrationButtonDisabled);
 
     return (
-      <section className='section-page'>
-        <h1>Register</h1>
-        <h2>Welcome!</h2>
+      <form
+        className="Registration__form"
+        onSubmit={this.handleSubmit}
+      >
+        <ul className="flex-outer">
+          <li role='alert'>
+            {error && <p className='form__input-error'>{error}</p>}
+          </li>
 
-        <form
-          className="Registration__form"
-          onSubmit={this.handleSubmit}
-        >
-          <ul className="flex-outer">
-            <li role='alert'>
-              {error && <p className='red'>{error}</p>}
-            </li>
-
-            <li>
-              <label htmlFor="user_name">
-                Username
+          <li>
+            <label htmlFor="user_name">
+              Username
                 <Required />
-              </label>
-              <input
-                type="text"
-                className="user_name"
-                name="user_name"
-                id="user_name"
-                onChange={e => this.updateUserName(e.target.value)}
-              />
-            </li>
-            <li>{this.state.user_name.touched && <ValidateError message={UserNameError.message} />}</li>
+            </label>
+            <input
+              type="text"
+              className="user_name"
+              name="user_name"
+              id="user_name"
+              onChange={e => this.updateUserName(e.target.value)}
+            />
+          </li>
+          <li>{this.state.user_name.touched && <ValidateError message={UserNameError.message} />}</li>
 
-            <li>
-              <label htmlFor='password'>
-                Password
+          <li>
+            <label htmlFor='password'>
+              Password
                 <Required />
-              </label>
-              <input
-                name='password'
-                type='password'
-                required
-                id='password'
-                onChange={e => this.updatePassword(e.target.value)}
-              />
-            </li>
-            <li>{this.state.password.touched && <ValidateError message={PasswordError.message} />}</li>
+            </label>
+            <input
+              name='password'
+              type='password'
+              required
+              id='password'
+              onChange={e => this.updatePassword(e.target.value)}
+            />
+          </li>
+          <li>{this.state.password.touched && <ValidateError message={PasswordError.message} />}</li>
 
-            <li>
-              <label htmlFor='confirm_password'>
-                Confirm Password
+          <li>
+            <label htmlFor='confirm_password'>
+              Confirm Password
                 <Required />
-              </label>
-              <input
-                name='confirm_password'
-                type='password'
-                required
-                id='confirm_password'
-                onChange={e => this.updateConfirmPassword(e.target.value)}
-              />
-            </li>
-            <li>{this.state.confirm_password.touched && <ValidateError message={ConfirmPasswordError.message} />}</li>
+            </label>
+            <input
+              name='confirm_password'
+              type='password'
+              required
+              id='confirm_password'
+              onChange={e => this.updateConfirmPassword(e.target.value)}
+            />
+          </li>
+          <li>{this.state.confirm_password.touched && <ValidateError message={ConfirmPasswordError.message} />}</li>
 
-            <li>
-              <label htmlFor='first_name'>
-                First name
+          <li>
+            <label htmlFor='first_name'>
+              First name
                 <Required />
-              </label>
-              <input
-                name='first_name'
-                type='text'
-                required
-                id='first_name'
-                onChange={e => this.updateFirstName(e.target.value)}
-              />
-            </li>
-            <li>{this.state.first_name.touched && <ValidateError message={FirstNameError.message} />}</li>
+            </label>
+            <input
+              name='first_name'
+              type='text'
+              required
+              id='first_name'
+              onChange={e => this.updateFirstName(e.target.value)}
+            />
+          </li>
+          <li>{this.state.first_name.touched && <ValidateError message={FirstNameError.message} />}</li>
 
-            <li>
-              <label htmlFor='last_name'>
-                Last name
+          <li>
+            <label htmlFor='last_name'>
+              Last name
                 <Required />
-              </label>
-              <input
-                name='last_name'
-                type='text'
-                required
-                id='last_name'
-                onChange={e => this.updateLastName(e.target.value)}
-              />
-            </li>
-            <li>{this.state.last_name.touched && <ValidateError message={LastNameError.message} />}</li>
+            </label>
+            <input
+              name='last_name'
+              type='text'
+              required
+              id='last_name'
+              onChange={e => this.updateLastName(e.target.value)}
+            />
+          </li>
+          <li>{this.state.last_name.touched && <ValidateError message={LastNameError.message} />}</li>
 
-            <li>
-              <label htmlFor='role'>
-                Are you a ....
+          <li>
+            <label htmlFor='role'>
+              Are you a ....
                 <Required />
-              </label>
-              <div className="radio">
-                <label>
-                  <input 
-                    type="radio" 
-                    value="teacher" 
-                    name='role' 
-                    onChange={e => this.updateRole(e.target.value)} 
-                  />
-                  Teacher
+            </label>
+            <div className="radio">
+              <label>
+                <input
+                  type="radio"
+                  value="teacher"
+                  name='role'
+                  onChange={e => this.updateRole(e.target.value)}
+                />
+                Teacher
                 </label>
-              </div>
-              or
+            </div>
+            or
               <div className="radio">
-                <label>
-                  <input 
-                    type="radio" 
-                    value="student" 
-                    name='role' 
-                    onChange={e => this.updateRole(e.target.value)} 
-                  />
-                  Student
+              <label>
+                <input
+                  type="radio"
+                  value="student"
+                  name='role'
+                  onChange={e => this.updateRole(e.target.value)}
+                />
+                Student
                 </label>
-              </div>
-            </li>
-            <li>{this.state.role.touched && <ValidateError message={RoleError.message} />}</li>
+            </div>
+          </li>
+          <li>{this.state.role.touched && <ValidateError message={RoleError.message} />}</li>
 
-            <button
-              className='button'
-              type='submit'
-              disabled={registrationButtonDisabled}
-            >
-              Register
+          <button
+            className='button'
+            type='submit'
+            disabled={registrationButtonDisabled}
+          >
+            Register
             </button>
-          </ul>
-        </form>
-      </section>
+        </ul>
+      </form>
     )
   }
 }

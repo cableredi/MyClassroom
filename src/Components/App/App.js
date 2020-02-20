@@ -16,7 +16,7 @@ import Calendar from '../Calendar/Calendar/Calendar';
 import CalendarDate from '../Calendar/CalendarDate/CalendarDate';
 
 import LoginPage from '../../Routes/LoginPage/LoginPage';
-import RegistrationForm from '../RegistrationForm/RegistrationForm';
+import RegistrationPage from '../../Routes/RegistrationPage/RegistrationPage';
 
 import AddAssignment from '../Assignments/AddAssignment/AddAssignment';
 import UpdateAssignment from '../Assignments/UpdateAssignment/UpdateAssignment';
@@ -287,7 +287,7 @@ export default class App extends Component {
 
             <PublicOnlyRoute
               path={'/registration'}
-              component={RegistrationForm}
+              component={RegistrationPage}
             />
 
             {/* Not Found Page */}
