@@ -161,7 +161,7 @@ export default class App extends Component {
         })
         .then(this.setClasses)
         .catch(error => this.setState({ error }))
-      }
+    }
   }
 
 
