@@ -110,7 +110,7 @@ export default class AddAssignment extends Component {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `basic ${TokenService.getAuthToken()}`
+        'Authorization': `bearer ${TokenService.getAuthToken()}`
       },
       body: JSON.stringify(assignment)
     })

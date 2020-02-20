@@ -133,7 +133,7 @@ export default class App extends Component {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `basic ${TokenService.getAuthToken()}`,
+          'Authorization': `bearer ${TokenService.getAuthToken()}`,
         }
       })
         .then(response => {
@@ -150,7 +150,7 @@ export default class App extends Component {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `basic ${TokenService.getAuthToken()}`,
+          'Authorization': `bearer ${TokenService.getAuthToken()}`,
         }
       })
         .then(response => {

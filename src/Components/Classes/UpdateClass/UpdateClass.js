@@ -179,7 +179,7 @@ export default class UpdateClass extends Component {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `basic ${TokenService.getAuthToken()}`,
+        'Authorization': `bearer ${TokenService.getAuthToken()}`,
       }
     })
       .then(response => {

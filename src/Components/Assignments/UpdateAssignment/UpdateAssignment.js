@@ -124,7 +124,7 @@ export default class UpdateAssignment extends Component {
       body: JSON.stringify(updatedAssignment),
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `basic ${TokenService.getAuthToken()}`,
+        'Authorization': `bearer ${TokenService.getAuthToken()}`,
       },
     })
       .then(res => {
