@@ -173,11 +173,11 @@ export default class Calendar extends Component {
    ***************************************/
   render() {
     return (
-      <>
+      <section className='Calendar'>
         {this.renderHeader()}
         {this.renderDays()}
         {this.renderCells()}
-      </>
+      </section>
     );
   }
 }
