@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import MyClassroomContext from '../Context/MyClassroomContext';
+import MyClassroomContext from '../../Context/MyClassroomContext';
 import config from '../../config';
 
 import Toolbar from '../Nav/Toolbar/Toolbar';
@@ -11,21 +11,25 @@ import Backdrop from '../Nav/Backdrop/Backdrop';
 import Landing from '../LandingPage/Landing';
 import Footer from '../Footer/Footer';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
+
 import Calendar from '../Calendar/Calendar/Calendar';
 import CalendarDate from '../Calendar/CalendarDate/CalendarDate';
-import LoginForm from '../LoginForm/LoginForm';
+
+import LoginPage from '../../Routes/LoginPage/LoginPage';
 import RegistrationForm from '../RegistrationForm/RegistrationForm';
+
 import AddAssignment from '../Assignments/AddAssignment/AddAssignment';
+import UpdateAssignment from '../Assignments/UpdateAssignment/UpdateAssignment';
+
 import Classes from '../Classes/ClassList/ClassList';
 import AddClass from '../Classes/AddClass/AddClass';
 import UpdateClass from '../Classes/UpdateClass/UpdateClass';
 
-import TokenService from '../../services/token-service';
+import TokenService from '../../Services/token-service';
 import PrivateRoute from '../Helpers/PrivateRoute';
 import PublicOnlyRoute from '../Helpers/PublicOnlyRoute';
 
 import { compareAsc } from 'date-fns'
-import UpdateAssignment from '../Assignments/UpdateAssignment/UpdateAssignment';
 
 export default class App extends Component {
   constructor(props) {
@@ -275,7 +279,7 @@ export default class App extends Component {
 
             <PublicOnlyRoute
               path={'/login'}
-              component={LoginForm}
+              component={LoginPage}
             />
 
             <PublicOnlyRoute

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import TokenService from '../../services/token-service';
+import TokenService from '../../Services/token-service';
 import ValidateError from '../ValidateError/ValidateError';
 
 const Required = () => (
@@ -62,7 +62,7 @@ export default class LoginForm extends Component {
     );
 
     this.props.onLoginSuccess();
-    
+
   };
 
   /************************/
@@ -103,62 +103,56 @@ export default class LoginForm extends Component {
       loginButtonDisabled = false;
     }
 
-
     return (
-      <section className='section-page'>
-        <h1>Login</h1>
-        <h2>Welcome Back!</h2>
+      <form
+        className='Login__form'
+        onSubmit={this.handleSubmitBasicAuth}
+      >
+        <div className="required">* Required Fields</div>
 
-        <form
-          className='Login__form'
-          onSubmit={this.handleSubmitBasicAuth}
-        >
-          <div className="required">* Required Fields</div>
-          
-          <ul className="flex-outer">
-            <li role='alert'>
-              {error && <p className='form__input-error'>{error}</p>}
-            </li>
+        <ul className="flex-outer">
+          <li role='alert'>
+            {error && <p className='form__input-error'>{error}</p>}
+          </li>
 
-            <li className='user_name'>
-              <label htmlFor='user_name'>
-                User name
+          <li className='user_name'>
+            <label htmlFor='user_name'>
+              User name
                 <Required />
-              </label>
-              <input
-                required
-                name='user_name'
-                id='user_name'
-                onChange={e => this.updateUserName(e.target.value)}
-              />
-            </li>
-            <li>{this.state.user_name.touched && <ValidateError message={UserNameError.message} />}</li>
+            </label>
+            <input
+              required
+              name='user_name'
+              id='user_name'
+              onChange={e => this.updateUserName(e.target.value)}
+            />
+          </li>
+          <li>{this.state.user_name.touched && <ValidateError message={UserNameError.message} />}</li>
 
-            <li className='password'>
-              <label htmlFor='password'>
-                Password
+          <li className='password'>
+            <label htmlFor='password'>
+              Password
                 <Required />
-              </label>
-              <input
-                required
-                name='password'
-                type='password'
-                id='password'
-                onChange={e => this.updatePassword(e.target.value)}
-              />
-            </li>
-            <li>{this.state.password.touched && <ValidateError message={PasswordError.message} />}</li>
+            </label>
+            <input
+              required
+              name='password'
+              type='password'
+              id='password'
+              onChange={e => this.updatePassword(e.target.value)}
+            />
+          </li>
+          <li>{this.state.password.touched && <ValidateError message={PasswordError.message} />}</li>
 
-            <button
-              className='button'
-              type='submit'
-              disabled={loginButtonDisabled}
-            >
-              Login
+          <button
+            className='button'
+            type='submit'
+            disabled={loginButtonDisabled}
+          >
+            Login
             </button>
-          </ul>
-        </form>
-      </section>
+        </ul>
+      </form>
     )
   };
 };

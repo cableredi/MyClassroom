@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { NavLink } from 'react-router-dom';
-import MyClassroomContext from '../../Context/MyClassroomContext';
+import MyClassroomContext from '../../../Context/MyClassroomContext';
 
 import {
   format, endOfMonth, startOfWeek, addDays, startOfMonth, endOfWeek,

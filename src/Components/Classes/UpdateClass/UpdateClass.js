@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import MyClassroomContext from '../../Context/MyClassroomContext';
+import MyClassroomContext from '../../../Context/MyClassroomContext';
 import ValidateError from '../../ValidateError/ValidateError';
-import TokenService from '../../../services/token-service';
+import TokenService from '../../../Services/token-service';
 import config from '../../../config';
 import PropTypes from 'prop-types';
 
@@ -133,6 +133,7 @@ export default class UpdateClass extends Component {
 
     //put fields in object
     const updatedSchoolClass = {
+      class_id: this.state.class_id.value,
       class_name: this.state.class_name.value,
       user_id: this.state.user_id.value,
       days: this.state.days.value,

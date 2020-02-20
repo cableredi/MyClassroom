@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import MyClassroomContext from '../../Context/MyClassroomContext';
+import MyClassroomContext from '../../../Context/MyClassroomContext';
 import ValidateError from '../../ValidateError/ValidateError';
-import TokenService from '../../../services/token-service';
+import TokenService from '../../../Services/token-service';
 import config from '../../../config';
 import { format } from 'date-fns';
 import PropTypes from 'prop-types';

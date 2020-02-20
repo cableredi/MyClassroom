@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import MyClassroomContext from '../../Context/MyClassroomContext';
+import MyClassroomContext from '../../../Context/MyClassroomContext';
 import ValidateError from '../../ValidateError/ValidateError';
-import TokenService from '../../../services/token-service';
+import TokenService from '../../../Services/token-service';
 import config from '../../../config';
 
 const Required = () => (
@@ -117,7 +117,7 @@ export default class AddClass extends Component {
         return response.json()
       })
       .then((data) => {
-        this.context.AddClass(data);
+        this.context.addClass(data);
         this.props.history.push('/classes');
       })
       .catch(error => this.setState({ error }))

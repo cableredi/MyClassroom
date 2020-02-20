@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom';
-import TokenService from '../../../services/token-service';
+import TokenService from '../../../Services/token-service';
 import myClassroomLogo from '../../Images/Background.svg';
 
 import DrawerToggleButton from '../SideDrawer/DrawerToggleButton';
