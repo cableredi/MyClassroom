@@ -30,6 +30,7 @@ import PrivateRoute from '../Helpers/PrivateRoute';
 import PublicOnlyRoute from '../Helpers/PublicOnlyRoute';
 
 import { compareAsc } from 'date-fns'
+import CalendarPage from '../../Routes/CalendarPage/CalendarPage';
 
 export default class App extends Component {
   constructor(props) {
@@ -50,6 +51,7 @@ export default class App extends Component {
   /*********************/
   /*  State functions  */
   /*********************/
+  /*
   setAssignments = assignments => {
     this.setState({
       assignments,
@@ -78,6 +80,7 @@ export default class App extends Component {
       assignments: newAssignments
     });
   }
+  */
 
   setClasses = classes => {
     this.setState({
@@ -125,7 +128,7 @@ export default class App extends Component {
   /* ComponentDidMount           */
   /*******************************/
   componentDidMount() {
-
+/*
     //Get all assignments from DB and update state
     fetch(config.API_ENDPOINT_ASSIGNMENTS, {
       method: 'GET',
@@ -142,6 +145,7 @@ export default class App extends Component {
       })
       .then(this.setAssignments)
       .catch(error => this.setState({ error }))
+*/
 
     // Get all classes from DB and update state
     fetch(config.API_ENDPOINT_CLASSES, {
@@ -167,10 +171,10 @@ export default class App extends Component {
   /*******************************/
   render() {
     const contextValue = {
-      assignments: this.state.assignments,
-      addAssignment: this.addAssignment,
-      updateAssignment: this.updateAssignment,
-      deleteAssignment: this.deleteAssignment,
+      //assignments: this.state.assignments,
+      //addAssignment: this.addAssignment,
+      //updateAssignment: this.updateAssignment,
+      //deleteAssignment: this.deleteAssignment,
       classes: this.state.classes,
       addClass: this.addClass,
       updateClass: this.updateClass,
@@ -207,12 +211,7 @@ export default class App extends Component {
 
             <PrivateRoute
               exact path='/calendar'
-              component={(routeProps) =>
-                <Calendar
-                  assignments={this.state.assignments}
-                  {...routeProps}
-                />
-              }
+              component={CalendarPage}
             />
 
             <PrivateRoute
