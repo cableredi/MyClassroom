@@ -9,9 +9,8 @@ export default class LoginPage extends Component {
     },
   }
 
-  handleLoginSuccess = () => {
+  handleLoginSuccess = (res) => {
     const { history } = this.props;
-    
     history.push('./calendar');
   }
 

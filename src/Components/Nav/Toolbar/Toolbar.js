@@ -3,16 +3,22 @@ import { NavLink } from 'react-router-dom';
 import TokenService from '../../../Services/token-service';
 import IdleService from '../../../Services/idle-service';
 import myClassroomLogo from '../../Images/Logo.svg';
+import MyClassroomContext from '../../../Context/MyClassroomContext';
 
 import DrawerToggleButton from '../SideDrawer/DrawerToggleButton';
 
 export default class Toolbar extends Component {
+  static contextType = MyClassroomContext;
+
   handleLogoutClick = () => {
     TokenService.clearAuthToken();
 
+    //clear out state
+    this.context.resetState();
+
     /* when logging out, clear the callbacks to the refresh api and idle auto logout */
-    TokenService.clearCallbackBeforeExpiry()
-    IdleService.unRegisterIdleResets()
+    TokenService.clearCallbackBeforeExpiry();
+    IdleService.unRegisterIdleResets();
   }
 
   renderLoginLink() {
@@ -32,7 +38,7 @@ export default class Toolbar extends Component {
     )
   };
 
-  renderLogoutLink() {
+  renderTeacherLogoutLink() {
     return (
       <>
         <li>
@@ -57,7 +63,27 @@ export default class Toolbar extends Component {
     )
   }
 
-  render() {
+  renderStudentLogoutLink() {
+    return (
+      <>
+        <li>
+          <NavLink to='/calendar'>
+            Calendar
+          </NavLink>
+        </li>
+        <li>
+          <NavLink 
+            to='/'
+            onClick={this.handleLogoutClick}
+          >
+            Logout
+          </NavLink>
+        </li>
+      </>
+    )
+  }
+
+  render() {    
     return (
       <header className="toolbar">
         <nav className="toolbar__navigation">
@@ -75,9 +101,13 @@ export default class Toolbar extends Component {
 
           <div className="toolbar__navigation-items">
             <ul>
-            {TokenService.hasAuthToken()
-              ? this.renderLogoutLink()
-              : this.renderLoginLink()}
+            {
+              TokenService.hasAuthToken()
+                ? TokenService.readJwtToken().role === 'Teacher'
+                  ? this.renderTeacherLogoutLink()
+                  : this.renderStudentLogoutLink()
+                : this.renderLoginLink()
+            }
             </ul>
           </div>
         </nav>

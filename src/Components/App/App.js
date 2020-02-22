@@ -28,7 +28,7 @@ import UpdateClass from '../Classes/UpdateClass/UpdateClass';
 import TokenService from '../../Services/token-service';
 import AuthApiService from '../../Services/auth-api-service';
 import IdleService from '../../Services/idle-service';
-import PrivateRoute from '../Helpers/PrivateRoute';
+import { PrivateRoute } from '../Helpers/PrivateRoute';
 import PublicOnlyRoute from '../Helpers/PublicOnlyRoute';
 
 import { compareAsc } from 'date-fns'
@@ -53,6 +53,11 @@ export default class App extends Component {
   /*********************/
   /*  State functions  */
   /*********************/
+  resetState = () => {
+    console.log('resetState')
+    this.setState({})
+  }
+
   setAssignments = assignments => {
     this.setState({
       assignments,
@@ -128,44 +133,6 @@ export default class App extends Component {
   /* ComponentDidMount           */
   /*******************************/
   componentDidMount() {
-
-    // If logged in get assignments and classes from db
-    if (TokenService.hasAuthToken()) {
-      //Get all assignments from DB and update state
-      fetch(config.API_ENDPOINT_ASSIGNMENTS, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `bearer ${TokenService.getAuthToken()}`,
-        }
-      })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error(response.status)
-          }
-          return response.json()
-        })
-        .then(this.setAssignments)
-        .catch(error => this.setState({ error }))
-
-      // Get all classes from DB and update state
-      fetch(config.API_ENDPOINT_CLASSES, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `bearer ${TokenService.getAuthToken()}`,
-        }
-      })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error(response.status)
-          }
-          return response.json()
-        })
-        .then(this.setClasses)
-        .catch(error => this.setState({ error }))
-    };
-
     /*
       set the function (callback) to call when a user goes idle
       we'll set this to logout a user when they're idle
@@ -190,6 +157,42 @@ export default class App extends Component {
         /* the timoue will call this callback just before the token expires */
         AuthApiService.postRefreshToken()
       })
+
+      //Get all assignments from DB and update state
+      fetch(config.API_ENDPOINT_ASSIGNMENTS, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `bearer ${TokenService.getAuthToken()}`,
+        }
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(response.status)
+          }
+          return response.json()
+        })
+        .then(this.setAssignments)
+        .catch(error => this.setState({ error }))
+
+      // Get all classes from DB and update state
+      if (TokenService.readJwtToken().role === 'Teacher') {
+        fetch(config.API_ENDPOINT_CLASSES, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `bearer ${TokenService.getAuthToken()}`,
+          }
+        })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(response.status)
+            }
+            return response.json()
+          })
+          .then(this.setClasses)
+          .catch(error => this.setState({ error }))
+      }
     }
   }
 
@@ -212,6 +215,8 @@ export default class App extends Component {
     TokenService.clearCallbackBeforeExpiry()
     /* remove the timeouts that auto logout when idle */
     IdleService.unRegisterIdleResets()
+    /* clear out state */
+    this.resetState();
     /*
       react won't know the token has been removed from local storage,
       so we need to tell React to rerender
@@ -232,7 +237,8 @@ export default class App extends Component {
       classes: this.state.classes,
       addClass: this.addClass,
       updateClass: this.updateClass,
-      deleteClass: this.deleteClass
+      deleteClass: this.deleteClass,
+      resetState: this.resetState,
     };
 
     let backdrop;
@@ -265,6 +271,7 @@ export default class App extends Component {
 
             <PrivateRoute
               exact path='/calendar'
+              roles={['teacher', 'student']}
               component={(routeProps) =>
                 <Calendar
                   assignments={this.state.assignments}
@@ -275,6 +282,7 @@ export default class App extends Component {
 
             <PrivateRoute
               exact path='/calendar/:date'
+              roles={['teacher', 'student']}
               component={(routeProps) =>
                 <CalendarDate
                   assignments={this.state.assignments.filter(assignment =>
@@ -287,6 +295,7 @@ export default class App extends Component {
 
             <PrivateRoute
               exact path='/addAssignment/:selectedDate'
+              roles={['teacher']}
               component={(routeProps) =>
                 <AddAssignment
                   classes={this.state.classes}
@@ -297,6 +306,7 @@ export default class App extends Component {
 
             <PrivateRoute
               exact path='/updateAssignment/:assignment_id'
+              roles={['teacher']}
               component={(routeProps) =>
                 <UpdateAssignment
                   assignment={this.state.assignments.find(assignment => assignment.assignment_id === Number(routeProps.match.params.assignment_id))}
@@ -308,6 +318,7 @@ export default class App extends Component {
 
             <PrivateRoute
               exact path='/classes'
+              roles={['teacher']}
               component={(routeProps) =>
                 <Classes
                   classes={this.state.classes}
@@ -318,6 +329,7 @@ export default class App extends Component {
 
             <PrivateRoute
               exact path='/addClass'
+              roles={['teacher']}
               component={(routeProps) =>
                 <AddClass
                   {...routeProps}
@@ -327,6 +339,7 @@ export default class App extends Component {
 
             <PrivateRoute
               exact path='/updateClass/:class_id'
+              roles={['teacher']}
               component={(routeProps) =>
                 <UpdateClass
                   schoolClass={this.state.classes.find(schoolClass => schoolClass.class_id === Number(routeProps.match.params.class_id))}

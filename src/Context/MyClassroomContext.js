@@ -9,6 +9,7 @@ const MyClassroomContext = React.createContext({
   addClass: () => {},
   updateClass: () => {},
   deleteClass: () => {},
+  resetState: () => {},
 });
 
 export default MyClassroomContext;
