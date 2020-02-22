@@ -119,7 +119,6 @@ export default class RegistrationForm extends Component {
         role.value = ''
         user_name.value = ''
         password.value = ''
-        
         this.props.onRegistrationSuccess()
       })
       .catch(res => {
@@ -177,7 +176,7 @@ export default class RegistrationForm extends Component {
     } else if (newPassword.startsWith(' ') || newPassword.endsWith(' ')) {
       return { error: true, message: "Password must not start or end with empty spacesr" };
     } else if (!REGEX_UPPER_LOWER_NUMBER_SPECIAL.test(newPassword)) {
-      return { error: true, message: 'Password must contain one upper case, lower case, number and special character'};
+      return { error: true, message: 'Password must contain one upper case, lower case, number and special character' };
     };
 
     return { error: false, message: '' }
@@ -201,6 +200,10 @@ export default class RegistrationForm extends Component {
       return { error: true, message: 'You must select either you are a Teacher or a Student' }
     }
 
+    if (newRole === 'student') {
+      return { error: true, message: 'Please get your login information from your teacher.' }
+    }
+
     return { error: false, message: '' }
   }
 
@@ -216,18 +219,10 @@ export default class RegistrationForm extends Component {
     const PasswordError = this.validatePassword();
     const ConfirmPasswordError = this.validateConfirmPassword();
 
-    console.log('errors', UserNameError, FirstNameError, LastNameError, RoleError, PasswordError, ConfirmPasswordError);
-
-    //if (!UserNameError.error && 
-    //  !FirstNameError.error && 
-    //  !LastNameError.error && 
-    //  !RoleError.error && 
-    //  !PasswordError.error && 
-    //  !ConfirmPasswordError) {
+    if (!UserNameError.error && !FirstNameError.error && !LastNameError.error && !RoleError.error && !PasswordError.error && !ConfirmPasswordError.error) {
         registrationButtonDisabled = false;
-    //}
-    console.log('registration button', registrationButtonDisabled);
-
+    }
+    
     return (
       <form
         className="Registration__form"
@@ -237,6 +232,37 @@ export default class RegistrationForm extends Component {
           <li role='alert'>
             {error && <p className='form__input-error'>{error}</p>}
           </li>
+
+          <li>
+            <label htmlFor='role'>
+              Are you a ....
+                <Required />
+            </label>
+            <div className="radio">
+              <label>
+                <input
+                  type="radio"
+                  value="teacher"
+                  name='role'
+                  onChange={e => this.updateRole(e.target.value)}
+                />
+                Teacher
+                </label>
+            </div>
+            or
+              <div className="radio">
+              <label>
+                <input
+                  type="radio"
+                  value="student"
+                  name='role'
+                  onChange={e => this.updateRole(e.target.value)}
+                />
+                Student
+                </label>
+            </div>
+          </li>
+          <li>{this.state.role.touched && <ValidateError message={RoleError.message} />}</li>
 
           <li>
             <label htmlFor="user_name">
@@ -312,37 +338,6 @@ export default class RegistrationForm extends Component {
             />
           </li>
           <li>{this.state.last_name.touched && <ValidateError message={LastNameError.message} />}</li>
-
-          <li>
-            <label htmlFor='role'>
-              Are you a ....
-                <Required />
-            </label>
-            <div className="radio">
-              <label>
-                <input
-                  type="radio"
-                  value="teacher"
-                  name='role'
-                  onChange={e => this.updateRole(e.target.value)}
-                />
-                Teacher
-                </label>
-            </div>
-            or
-              <div className="radio">
-              <label>
-                <input
-                  type="radio"
-                  value="student"
-                  name='role'
-                  onChange={e => this.updateRole(e.target.value)}
-                />
-                Student
-                </label>
-            </div>
-          </li>
-          <li>{this.state.role.touched && <ValidateError message={RoleError.message} />}</li>
 
           <button
             className='button'

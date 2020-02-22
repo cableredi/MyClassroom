@@ -1,7 +1,10 @@
-import React, { Component } from 'react'
-import LoginForm from '../../Components/LoginForm/LoginForm'
+import React, { Component } from 'react';
+import MyClassroomContext from '../../Context/MyClassroomContext';
+import LoginForm from '../../Components/LoginForm/LoginForm';
 
 export default class LoginPage extends Component {
+  static contextType = MyClassroomContext;
+
   static defaultProps = {
     location: {},
     history: {
@@ -9,9 +12,11 @@ export default class LoginPage extends Component {
     },
   }
 
-  handleLoginSuccess = (res) => {
-    const { history } = this.props;
-    history.push('./calendar');
+  handleLoginSuccess = () => {
+    const { location, history } = this.props;
+    const destination = (location.state || {}).from || '/calendar';
+
+    history.push(destination);
   }
 
   render() {

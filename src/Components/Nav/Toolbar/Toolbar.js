@@ -11,10 +11,11 @@ export default class Toolbar extends Component {
   static contextType = MyClassroomContext;
 
   handleLogoutClick = () => {
+  console.log('handleLogout');
     TokenService.clearAuthToken();
 
     //clear out state
-    this.context.resetState();
+    this.context.resetState({});
 
     /* when logging out, clear the callbacks to the refresh api and idle auto logout */
     TokenService.clearCallbackBeforeExpiry();
@@ -103,7 +104,7 @@ export default class Toolbar extends Component {
             <ul>
             {
               TokenService.hasAuthToken()
-                ? TokenService.readJwtToken().role === 'Teacher'
+                ? TokenService.readJwtToken().role === 'teacher'
                   ? this.renderTeacherLogoutLink()
                   : this.renderStudentLogoutLink()
                 : this.renderLoginLink()

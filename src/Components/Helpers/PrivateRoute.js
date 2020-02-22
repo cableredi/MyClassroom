@@ -17,7 +17,7 @@ export const PrivateRoute = ({ component: Component, roles, ...rest }) => (
 
         // check if route is restricted by role
         if (roles && roles.indexOf(userRole) === -1) {
-            // role not authoriszd so redirect to calendar page
+            // role not authorized so redirect to calendar page
             return <Redirect to={{ pathname: '/calendar'}} />
         }
 

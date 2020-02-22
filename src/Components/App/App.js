@@ -133,6 +133,7 @@ export default class App extends Component {
   /* ComponentDidMount           */
   /*******************************/
   componentDidMount() {
+    console.log('componentDidMount');
     /*
       set the function (callback) to call when a user goes idle
       we'll set this to logout a user when they're idle
@@ -141,22 +142,6 @@ export default class App extends Component {
 
     /* if a user is logged in */
     if (TokenService.hasAuthToken()) {
-      /*
-        tell the idle service to register event listeners
-        the event listeners are fired when a user does something, e.g. move their mouse
-        if the user doesn't trigger one of these event listeners,
-          the idleCallback (logout) will be invoked
-      */
-      IdleService.registerIdleTimerResets()
-
-      /*
-        Tell the token service to read the JWT, looking at the exp value
-        and queue a timeout just before the token expires
-      */
-      TokenService.queueCallbackBeforeExpiry(() => {
-        /* the timoue will call this callback just before the token expires */
-        AuthApiService.postRefreshToken()
-      })
 
       //Get all assignments from DB and update state
       fetch(config.API_ENDPOINT_ASSIGNMENTS, {
@@ -175,24 +160,38 @@ export default class App extends Component {
         .then(this.setAssignments)
         .catch(error => this.setState({ error }))
 
-      // Get all classes from DB and update state
-      if (TokenService.readJwtToken().role === 'Teacher') {
-        fetch(config.API_ENDPOINT_CLASSES, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `bearer ${TokenService.getAuthToken()}`,
+      fetch(config.API_ENDPOINT_CLASSES, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `bearer ${TokenService.getAuthToken()}`,
+        }
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(response.status)
           }
+          return response.json()
         })
-          .then(response => {
-            if (!response.ok) {
-              throw new Error(response.status)
-            }
-            return response.json()
-          })
-          .then(this.setClasses)
-          .catch(error => this.setState({ error }))
-      }
+        .then(this.setClasses)
+        .catch(error => this.setState({ error }))
+
+      /*
+        tell the idle service to register event listeners
+        the event listeners are fired when a user does something, e.g. move their mouse
+        if the user doesn't trigger one of these event listeners,
+          the idleCallback (logout) will be invoked
+      */
+      IdleService.registerIdleTimerResets()
+
+      /*
+        Tell the token service to read the JWT, looking at the exp value
+        and queue a timeout just before the token expires
+      */
+      TokenService.queueCallbackBeforeExpiry(() => {
+        /* the timoue will call this callback just before the token expires */
+        AuthApiService.postRefreshToken()
+      })
     }
   }
 
@@ -216,7 +215,7 @@ export default class App extends Component {
     /* remove the timeouts that auto logout when idle */
     IdleService.unRegisterIdleResets()
     /* clear out state */
-    this.resetState();
+    this.resetState({});
     /*
       react won't know the token has been removed from local storage,
       so we need to tell React to rerender
@@ -240,6 +239,8 @@ export default class App extends Component {
       deleteClass: this.deleteClass,
       resetState: this.resetState,
     };
+
+    console.log('App render state', this.state)
 
     let backdrop;
 
