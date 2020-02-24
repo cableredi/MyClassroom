@@ -21,6 +21,8 @@ import RegistrationPage from '../../Routes/RegistrationPage/RegistrationPage';
 import AddAssignment from '../Assignments/AddAssignment/AddAssignment';
 import UpdateAssignment from '../Assignments/UpdateAssignment/UpdateAssignment';
 
+import AddStudentLogin from '../StudentLogin/AddStudentLogin';
+
 import Classes from '../Classes/ClassList/ClassList';
 import AddClass from '../Classes/AddClass/AddClass';
 import UpdateClass from '../Classes/UpdateClass/UpdateClass';
@@ -344,6 +346,16 @@ export default class App extends Component {
               component={(routeProps) =>
                 <UpdateClass
                   schoolClass={this.state.classes.find(schoolClass => schoolClass.class_id === Number(routeProps.match.params.class_id))}
+                  {...routeProps}
+                />
+              }
+            />
+
+            <PrivateRoute
+              exact path='/users/:user_id'
+              roles={['teacher']}
+              component={(routeProps) =>
+                <AddStudentLogin
                   {...routeProps}
                 />
               }

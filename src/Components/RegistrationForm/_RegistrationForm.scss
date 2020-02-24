@@ -11,3 +11,16 @@
   max-width: 900px;
   background-color: $bg-color;
 }
+
+.Registration__form li {
+  justify-content: center;
+}
+
+.Registration__form .flex-outer li label {
+  width: 200px;
+}
+
+.Registration__form .flex-outer div.radio {
+  width: 100px;
+  font-weight: bold;
+}

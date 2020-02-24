@@ -239,7 +239,6 @@ export default class RegistrationForm extends Component {
                 <Required />
             </label>
             <div className="radio">
-              <label>
                 <input
                   type="radio"
                   value="teacher"
@@ -247,11 +246,9 @@ export default class RegistrationForm extends Component {
                   onChange={e => this.updateRole(e.target.value)}
                 />
                 Teacher
-                </label>
             </div>
             or
               <div className="radio">
-              <label>
                 <input
                   type="radio"
                   value="student"
@@ -259,7 +256,6 @@ export default class RegistrationForm extends Component {
                   onChange={e => this.updateRole(e.target.value)}
                 />
                 Student
-                </label>
             </div>
           </li>
           <li>{this.state.role.touched && <ValidateError message={RoleError.message} />}</li>

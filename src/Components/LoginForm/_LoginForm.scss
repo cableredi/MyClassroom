@@ -11,3 +11,11 @@
   max-width: 900px;
   background-color: $bg-color;
 }
+
+.Login__form li {
+  justify-content: center;
+}
+
+.Login__form .flex-outer li label {
+  width: 150px;
+}

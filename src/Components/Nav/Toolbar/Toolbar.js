@@ -39,7 +39,7 @@ export default class Toolbar extends Component {
     )
   };
 
-  renderTeacherLogoutLink() {
+  renderTeacherLogoutLink(user_id) {
     return (
       <>
         <li>
@@ -50,6 +50,13 @@ export default class Toolbar extends Component {
         <li>
           <NavLink to='/classes'>
             Classes
+          </NavLink>
+        </li>
+        <li>
+          <NavLink 
+            to={`/users/${user_id}`}
+          >
+            Student Login Info
           </NavLink>
         </li>
         <li>
@@ -105,7 +112,7 @@ export default class Toolbar extends Component {
             {
               TokenService.hasAuthToken()
                 ? TokenService.readJwtToken().role === 'teacher'
-                  ? this.renderTeacherLogoutLink()
+                  ? this.renderTeacherLogoutLink(TokenService.readJwtToken().user_id)
                   : this.renderStudentLogoutLink()
                 : this.renderLoginLink()
             }
