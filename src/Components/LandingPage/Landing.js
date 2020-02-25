@@ -1,26 +1,6 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
-import AuthApiService from '../../Services/auth-api-service';
-
-/***********************/
-/* handleSubmitJWTAuth */
-/***********************/
-function handleSubmitJwtAuth(userName, password, history) {
-  AuthApiService.postLogin({
-    user_name: userName,
-    password: password,
-  })
-    .then(res => {
-      history.push('/calendar');
-    })
-    .catch(res => {
-      console.log('there was an error', res);
-    })
-}
 
 export default function Landing() {
-  let history = useHistory();
-
   return (
     <section className='section-page'>
       <header role="banner">
@@ -55,20 +35,6 @@ export default function Landing() {
         </p>
       </div>
 
-      <div className='Landing__demo'>
-        <h1>Try it out</h1>
-        <h2>Log in as either a teacher or student</h2>
-        <button
-          onClick={ () => {handleSubmitJwtAuth('teacher', 'teacher', history)} }
-        >
-          Teacher
-        </button>
-        <button
-          onClick={ () => {handleSubmitJwtAuth('student', 'student', history)} }
-        >
-          Student
-        </button>
-      </div>
     </section>
   )
 }

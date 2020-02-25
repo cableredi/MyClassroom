@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import MyClassroomContext from '../../Context/MyClassroomContext';
-import config from '../../config';
 
 import Toolbar from '../Nav/Toolbar/Toolbar';
 import SideDrawer from '../Nav/SideDrawer/SideDrawer';
@@ -28,7 +27,8 @@ import AddClass from '../Classes/AddClass/AddClass';
 import UpdateClass from '../Classes/UpdateClass/UpdateClass';
 
 import TokenService from '../../Services/token-service';
-import AuthApiService from '../../Services/auth-api-service';
+import AssignmentsApiService from '../../Services/assignments-api-service';
+import ClassesApiService from '../../Services/classes-api-service';
 import IdleService from '../../Services/idle-service';
 import { PrivateRoute } from '../Helpers/PrivateRoute';
 import PublicOnlyRoute from '../Helpers/PublicOnlyRoute';
@@ -61,6 +61,7 @@ export default class App extends Component {
   }
 
   setAssignments = assignments => {
+console.log('setAssignments')
     this.setState({
       assignments,
     })
@@ -135,67 +136,24 @@ export default class App extends Component {
   /* ComponentDidMount           */
   /*******************************/
   componentDidMount() {
-    /*
-      set the function (callback) to call when a user goes idle
-      we'll set this to logout a user when they're idle
-    */
-    IdleService.setIdleCallback(this.logoutFromIdle)
-
-    /* if a user is logged in */
+  console.log('componentDidMount');
     if (TokenService.hasAuthToken()) {
-
       //Get all assignments from DB and update state
-      fetch(config.API_ENDPOINT_ASSIGNMENTS, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `bearer ${TokenService.getAuthToken()}`,
-        }
-      })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error(response.status)
-          }
-          return response.json()
+      const assignmentsRequest = AssignmentsApiService.getAll();
+      const classesRequest = ClassesApiService.getAll();
+
+      Promise.all([assignmentsRequest, classesRequest])
+        .then(function (values) {
+          this.setAssignments(values[0])
+          this.setClasses(values[1])
         })
-        .then(this.setAssignments)
         .catch(error => this.setState({ error }))
-
-      fetch(config.API_ENDPOINT_CLASSES, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `bearer ${TokenService.getAuthToken()}`,
-        }
-      })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error(response.status)
-          }
-          return response.json()
-        })
-        .then(this.setClasses)
-        .catch(error => this.setState({ error }))
-
-      /*
-        tell the idle service to register event listeners
-        the event listeners are fired when a user does something, e.g. move their mouse
-        if the user doesn't trigger one of these event listeners,
-          the idleCallback (logout) will be invoked
-      */
-      IdleService.registerIdleTimerResets()
-
-      /*
-        Tell the token service to read the JWT, looking at the exp value
-        and queue a timeout just before the token expires
-      */
-      TokenService.queueCallbackBeforeExpiry(() => {
-        /* the timoue will call this callback just before the token expires */
-        AuthApiService.postRefreshToken()
-      })
     }
   }
 
+  /*******************************/
+  /* ComponentWillUnmount        */
+  /*******************************/
   componentWillUnmount() {
     /*
       when the app unmounts,
@@ -208,6 +166,9 @@ export default class App extends Component {
     TokenService.clearCallbackBeforeExpiry()
   }
 
+  /*************************/
+  /* Logout if Idle        */
+  /*************************/
   logoutFromIdle = () => {
     /* remove the token from localStorage */
     TokenService.clearAuthToken()
@@ -231,17 +192,17 @@ export default class App extends Component {
   render() {
     const contextValue = {
       assignments: this.state.assignments,
+      setAssignments: this.setAssignments,
       addAssignment: this.addAssignment,
       updateAssignment: this.updateAssignment,
       deleteAssignment: this.deleteAssignment,
       classes: this.state.classes,
+      setClasses: this.setClasses,
       addClass: this.addClass,
       updateClass: this.updateClass,
       deleteClass: this.deleteClass,
       resetState: this.resetState,
     };
-
-    console.log('App render state', this.state)
 
     let backdrop;
 

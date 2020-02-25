@@ -48,6 +48,17 @@ h2 {
   font-family: $font-stack;
 }
 
+.error {
+  color: red;
+  font-style: italic;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 5px;
+  background-color: $bg-color;
+  width: 500px;
+  margin: 20px auto;
+}
+
 @media (max-width: 400px) {
 	.sectionSpacer {
     width: 100%;

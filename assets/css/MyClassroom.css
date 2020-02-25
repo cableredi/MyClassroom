@@ -551,6 +551,17 @@ h2 {
   font-family: "Bubblegum Sans", cursive;
 }
 
+.error {
+  color: red;
+  font-style: italic;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 5px;
+  background-color: #f9f9f9;
+  width: 500px;
+  margin: 20px auto;
+}
+
 @media (max-width: 400px) {
   .sectionSpacer {
     width: 100%;
