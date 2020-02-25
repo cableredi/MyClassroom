@@ -52,17 +52,16 @@ export default class LoginPage extends Component {
     const classesRequest = ClassesApiService.getAll();
 
     Promise.all([assignmentsRequest, classesRequest])
-      .then(function(values) {
-  console.log('Values', values)
+      .then((values) => {
         this.context.setAssignments(values[0])
         this.context.setClasses(values[1])
+
         history.push('/calendar');
       })
       .catch(error => this.setState({error: error.message}));
   }
 
   render() {
-    console.log('context', this.context)
     return (
       <section className='section-page'>
         <h1>Login</h1>

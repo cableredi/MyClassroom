@@ -2,15 +2,16 @@ import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom';
 import TokenService from '../../../Services/token-service';
 import IdleService from '../../../Services/idle-service';
+import MyClassroomContext from '../../../Context/MyClassroomContext';
 
 export default class SideDrawer extends Component {
+  static contextType = MyClassroomContext;
 
   handleLogoutClick = () => {
-    console.log('handleLogout');
     TokenService.clearAuthToken();
 
     //clear out state
-    //this.context.resetState({});
+    this.context.resetState();
 
     /* when logging out, clear the callbacks to the refresh api and idle auto logout */
     TokenService.clearCallbackBeforeExpiry();

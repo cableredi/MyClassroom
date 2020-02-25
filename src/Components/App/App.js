@@ -56,12 +56,10 @@ export default class App extends Component {
   /*  State functions  */
   /*********************/
   resetState = () => {
-    console.log('resetState')
     this.setState({})
   }
 
   setAssignments = assignments => {
-console.log('setAssignments')
     this.setState({
       assignments,
     })
@@ -136,14 +134,13 @@ console.log('setAssignments')
   /* ComponentDidMount           */
   /*******************************/
   componentDidMount() {
-  console.log('componentDidMount');
     if (TokenService.hasAuthToken()) {
       //Get all assignments from DB and update state
       const assignmentsRequest = AssignmentsApiService.getAll();
       const classesRequest = ClassesApiService.getAll();
 
       Promise.all([assignmentsRequest, classesRequest])
-        .then(function (values) {
+        .then((values) => {
           this.setAssignments(values[0])
           this.setClasses(values[1])
         })
