@@ -12,7 +12,7 @@ function checkDate(currentDate) {
         to={`/AddAssignment/${currentDate}`}
         className={'calendar__update'}
       >
-        <div className="button">
+        <div className="calendar-date__button button">
           Add Assignment
         </div>
       </NavLink>

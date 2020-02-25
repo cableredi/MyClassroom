@@ -8,7 +8,6 @@
 
   label {
     display: inline-block;
-    text-align: right;
     margin-right: 0.5em;
     vertical-align: center;
   }
@@ -140,5 +139,17 @@
     font-weight: 600;
     transition: 0.3s;
     border-radius: 10px;
+  }
+}
+
+@media (max-width: 400px) {
+	label {
+    text-align: center;
+  }
+}
+
+@media (min-width: 401px) {
+	label {
+    text-align: right;
   }
 }

@@ -1,11 +1,26 @@
+.calendar-date {
+  @extend %buttons-shared;
+}
+
 .calendar-date__header {
   text-align: center;
   font-family: $font-stack;
   font-weight: normal;
 }
 
-.calendar-date__return {
+.calendar-date__return,
+.calendar-date__button {
   text-align: center;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px;
+  box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
+  background-color: $bg-color;
+}
+
+.calendar-date__button {
+  width: 150px;
+  margin: 0 auto;
 }
 
 .calendar-date__return .icon {
@@ -36,6 +51,7 @@
   padding: 20px 30px;
   max-width: 300px;
   box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
+  background-color: $bg-color;
 }
 
 .calendar-date__items-class {

@@ -102,7 +102,7 @@ export default class Toolbar extends Component {
           <div className="toolbar__logo">
             <NavLink to='/'>
               <img src={myClassroomLogo} alt="Bedbugs logo" /> MyClassroom
-        </NavLink>
+            </NavLink>
           </div>
 
           <div className="spacer" />

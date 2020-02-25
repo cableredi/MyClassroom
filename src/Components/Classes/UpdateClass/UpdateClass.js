@@ -235,7 +235,6 @@ export default class UpdateClass extends Component {
   /*      render       */
   /*********************/
   render() {
-    console.log('props', this.props.schoolClass)
     let classButtonDisabled = true;
 
     const SchoolClassNameError = this.validateClassName();

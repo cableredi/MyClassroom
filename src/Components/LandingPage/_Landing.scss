@@ -1,3 +1,7 @@
+.Landing_demo {
+  @extend %buttons-shared;
+}
+
 .Landing__contents {
   max-width: 800px;
   height: auto;
@@ -8,12 +12,14 @@
   border-radius: 5px;
   box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
   line-height: 1.5em;
+  background-color: $bg-color;
 }
 
 .Landing__header {
   font-family: $font-stack;
   font-size: 4em;
   font-weight: 300;
+  margin-bottom: 20px;
 }
 
 .Landing__images {
@@ -34,4 +40,20 @@
   border-radius: 5px;
   box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
   line-height: 1.5em;
+}
+
+.Landing__demo button {
+  margin: 0 auto;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px;
+  box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
+  background-color: $bg-color;
+  width: 150px;
+  margin: 20px; 
+}
+
+.Landing__demo button:hover {
+  border: 1px solid black;
+  color: $text-hover-color;
 }

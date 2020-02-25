@@ -22,7 +22,6 @@ code {
 
 .Registration__form label, .Login__form label, .Assignments__form label, .Class__form label {
   display: inline-block;
-  text-align: right;
   margin-right: 0.5em;
   vertical-align: center;
 }
@@ -172,10 +171,13 @@ code {
   max-height: 200px;
 }
 
-.Registration__form .button, .Login__form .button, .Assignments__form .button,
+.Landing_demo .button, .calendar-date .button, .Registration__form .button, .Login__form .button, .Assignments__form .button, .Class__form .button,
+.Landing_demo .form__button-group button,
+.calendar-date .form__button-group button,
 .Registration__form .form__button-group button,
 .Login__form .form__button-group button,
-.Assignments__form .form__button-group button {
+.Assignments__form .form__button-group button,
+.Class__form .form__button-group button {
   margin: 10px auto;
   background-color: #f9f9f9;
   width: 180px;
@@ -186,16 +188,25 @@ code {
   text-transform: uppercase;
 }
 
-.Registration__form .button:hover, .Login__form .button:hover, .Assignments__form .button:hover,
+.Landing_demo .button:hover, .calendar-date .button:hover, .Registration__form .button:hover, .Login__form .button:hover, .Assignments__form .button:hover, .Class__form .button:hover,
+.Landing_demo .button:focus,
+.calendar-date .button:focus,
 .Registration__form .button:focus,
 .Login__form .button:focus,
 .Assignments__form .button:focus,
+.Class__form .button:focus,
+.Landing_demo .form__button-group button:hover,
+.calendar-date .form__button-group button:hover,
 .Registration__form .form__button-group button:hover,
 .Login__form .form__button-group button:hover,
 .Assignments__form .form__button-group button:hover,
+.Class__form .form__button-group button:hover,
+.Landing_demo .form__button-group button:focus,
+.calendar-date .form__button-group button:focus,
 .Registration__form .form__button-group button:focus,
 .Login__form .form__button-group button:focus,
-.Assignments__form .form__button-group button:focus {
+.Assignments__form .form__button-group button:focus,
+.Class__form .form__button-group button:focus {
   background-color: white;
   color: #1a8fff;
   -webkit-box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.5);
@@ -204,6 +215,18 @@ code {
   -webkit-transition: 0.3s;
   transition: 0.3s;
   border-radius: 10px;
+}
+
+@media (max-width: 400px) {
+  label {
+    text-align: center;
+  }
+}
+
+@media (min-width: 401px) {
+  label {
+    text-align: right;
+  }
 }
 
 .Landing__contents {
@@ -217,12 +240,14 @@ code {
   -webkit-box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
           box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
   line-height: 1.5em;
+  background-color: #f9f9f9;
 }
 
 .Landing__header {
   font-family: "Bubblegum Sans", cursive;
   font-size: 4em;
   font-weight: 300;
+  margin-bottom: 20px;
 }
 
 .Landing__images {
@@ -254,6 +279,23 @@ code {
   -webkit-box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
           box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
   line-height: 1.5em;
+}
+
+.Landing__demo button {
+  margin: 0 auto;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px;
+  -webkit-box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
+          box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
+  background-color: #f9f9f9;
+  width: 150px;
+  margin: 20px;
+}
+
+.Landing__demo button:hover {
+  border: 1px solid black;
+  color: #1a8fff;
 }
 
 .Footer {
@@ -465,6 +507,8 @@ code {
 
 html {
   font-size: 16px;
+  background: url("../Images/paper.svg") repeat-y;
+  background-size: cover;
 }
 
 a {
@@ -775,8 +819,20 @@ h2 {
   font-weight: normal;
 }
 
-.calendar-date__return {
+.calendar-date__return,
+.calendar-date__button {
   text-align: center;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px;
+  -webkit-box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
+          box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
+  background-color: #f9f9f9;
+}
+
+.calendar-date__button {
+  width: 150px;
+  margin: 0 auto;
 }
 
 .calendar-date__return .icon {
@@ -818,6 +874,7 @@ h2 {
   max-width: 300px;
   -webkit-box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
           box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
+  background-color: #f9f9f9;
 }
 
 .calendar-date__items-class {
@@ -840,6 +897,21 @@ h2 {
   background-color: #f9f9f9;
 }
 
+.Registration__form li {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.Registration__form .flex-outer li label {
+  width: 200px;
+}
+
+.Registration__form .flex-outer div.radio {
+  width: 100px;
+  font-weight: bold;
+}
+
 .Login__form {
   border: 1px solid black;
   border-radius: 5px;
@@ -848,6 +920,16 @@ h2 {
   padding: 20px;
   max-width: 900px;
   background-color: #f9f9f9;
+}
+
+.Login__form li {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.Login__form .flex-outer li label {
+  width: 150px;
 }
 
 .Assignments__form {
@@ -911,5 +993,16 @@ h2 {
 
 .class-list_items-header {
   font-weight: 700;
+}
+
+.classes-button {
+  margin: 0 auto;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px;
+  -webkit-box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
+          box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
+  background-color: #f9f9f9;
+  width: 150px;
 }
 /*# sourceMappingURL=MyClassroom.css.map */

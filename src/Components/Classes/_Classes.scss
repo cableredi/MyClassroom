@@ -1,5 +1,6 @@
 .Class__form {
   @extend %form-shared;
+  @extend %buttons-shared;
 }
 
 .Class__form {
@@ -41,4 +42,14 @@
 
 .class-list_items-header {
   font-weight: 700;
+}
+
+.classes-button {
+  margin: 0 auto;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px;
+  box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
+  background-color: $bg-color;
+  width: 150px;
 }

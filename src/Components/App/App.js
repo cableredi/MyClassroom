@@ -135,7 +135,6 @@ export default class App extends Component {
   /* ComponentDidMount           */
   /*******************************/
   componentDidMount() {
-    console.log('componentDidMount');
     /*
       set the function (callback) to call when a user goes idle
       we'll set this to logout a user when they're idle

@@ -21,7 +21,7 @@ export default function ClassList(props) {
         </ul>
 
         <NavLink to='/addClass'>
-          <div className="button">
+          <div className="classes-button button">
             Add Class
           </div>
         </NavLink>
