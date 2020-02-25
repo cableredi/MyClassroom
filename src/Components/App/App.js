@@ -22,7 +22,7 @@ import UpdateAssignment from '../Assignments/UpdateAssignment/UpdateAssignment';
 
 import AddStudentLogin from '../StudentLogin/AddStudentLogin';
 
-import Classes from '../Classes/ClassList/ClassList';
+import ClassesList from '../Classes/ClassesList/ClassesList';
 import AddClass from '../Classes/AddClass/AddClass';
 import UpdateClass from '../Classes/UpdateClass/UpdateClass';
 
@@ -82,6 +82,15 @@ export default class App extends Component {
   deleteAssignment = (assignment_id) => {
     const newAssignments = this.state.assignments.filter(assignment =>
       assignment.assignment_id !== Number(assignment_id)
+    );
+    this.setState({
+      assignments: newAssignments
+    });
+  }
+
+  deleteAssignmentClasses = (class_id) => {
+    const newAssignments = this.state.assignments.filter(assignment =>
+      assignment.class_id !== Number(class_id)
     );
     this.setState({
       assignments: newAssignments
@@ -193,6 +202,7 @@ export default class App extends Component {
       addAssignment: this.addAssignment,
       updateAssignment: this.updateAssignment,
       deleteAssignment: this.deleteAssignment,
+      deleteAssignmentClasses: this.deleteAssignmentClasses,
       classes: this.state.classes,
       setClasses: this.setClasses,
       addClass: this.addClass,
@@ -280,7 +290,7 @@ export default class App extends Component {
               exact path='/classes'
               roles={['teacher']}
               component={(routeProps) =>
-                <Classes
+                <ClassesList
                   classes={this.state.classes}
                   {...routeProps}
                 />

@@ -179,6 +179,9 @@ export default class AddAssignment extends Component {
     return { error: false, message: '' }
   }
 
+  /**********/
+  /* Render */
+  /**********/
 
   render() {
     const { selectedDate } = this.props.match.params;

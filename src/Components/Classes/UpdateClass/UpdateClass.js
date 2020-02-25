@@ -189,6 +189,7 @@ export default class UpdateClass extends Component {
           })
         }
         this.context.deleteClass(this.state.class_id.value);
+        this.context.deleteAssignmentClasses(this.state.class_id.value);
         this.props.history.push('/classes')
       })
       .catch(error => {

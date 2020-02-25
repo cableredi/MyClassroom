@@ -10,7 +10,10 @@ it('renders without crashing', () => {
 
   ReactDOM.render(
     <BrowserRouter>
-      <AddAssignment classes={classesProps} />
+      <AddAssignment 
+        classes={classesProps} 
+        match={{params: {selectedDate: new Date()}, isExact: true, path: "", url: ""}}
+      />
     </BrowserRouter>,
     div
   );
