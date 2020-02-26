@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import ClassesItems from './ClassItems/ClassItems';
+import ClassesList from './ClassesList/ClassesList';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
@@ -10,7 +10,7 @@ it('renders without crashing', () => {
 
   ReactDOM.render(
     <BrowserRouter>
-      <ClassesItems classes={classesProps} />
+      <ClassesList classes={classesProps} />
     </BrowserRouter>,
     div
   );
