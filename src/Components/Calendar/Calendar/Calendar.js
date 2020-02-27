@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { NavLink } from 'react-router-dom';
 import MyClassroomContext from '../../../Context/MyClassroomContext';
+import getUTCDate from '../../Helpers/GetDates';
 
 import {
   format, endOfMonth, startOfWeek, addDays, startOfMonth, endOfWeek,
-  isSameMonth, isSameDay, addMonths, subMonths, isPast, isToday, compareAsc, parseISO
+  isSameMonth, isSameDay, addMonths, subMonths, isPast, isToday, compareAsc, isSameYear, parseISO
 } from 'date-fns'
 
 import PropTypes from 'prop-types';
@@ -88,10 +89,10 @@ export default class Calendar extends Component {
                 : isSameDay(day, selectedDate) ? "selected" : ""
               }
               ${
-                isPast(day) && !isToday(day)
-                  ? "Calendar__prevDate"
-                  : ""
-                }`}
+              isPast(day) && !isToday(day)
+                ? "Calendar__prevDate"
+                : ""
+              }`}
             key={day}
           >
             <NavLink
@@ -124,16 +125,14 @@ export default class Calendar extends Component {
    ***************************************/
   getAssignments = (day) => {
     const assignments = this.props.assignments;
-    let formattedDueDate = '';
-  
+    const formattedDay = getUTCDate(day).toString().slice(0, 15);
+
     const display = assignments.filter(assignment => {
-      formattedDueDate = parseISO(assignment.due_date, 'MM/dd/yyyy', new Date());
-console.log('day', day);
-console.log('formattedDueDate', formattedDueDate);
-console.log('compare', compareAsc(day, formattedDueDate));
-      return ( compareAsc(day, formattedDueDate) === 0 )
+      const formattedDueDate = getUTCDate(assignment.due_date).toString().slice(0, 15);
+      
+      return ( formattedDay === formattedDueDate );
     })
-  
+
     function showAssignment(display) {
       const className = display[0].class_name;
 
@@ -143,15 +142,15 @@ console.log('compare', compareAsc(day, formattedDueDate));
           {display.length > 1
             ? <span className="Calendar__more">+{display.length - 1}</span>
             : ''
-            }
+          }
         </>
       )
     }
-  
+
     return (
       display.length
         ? showAssignment(display)
-      : ''
+        : ''
     )
   }
 

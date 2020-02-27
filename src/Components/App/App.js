@@ -33,9 +33,6 @@ import IdleService from '../../Services/idle-service';
 import { PrivateRoute } from '../Helpers/PrivateRoute';
 import PublicOnlyRoute from '../Helpers/PublicOnlyRoute';
 
-import { compareAsc, parseISO } from 'date-fns'
-
-
 export default class App extends Component {
   constructor(props) {
     super(props)
@@ -217,6 +214,12 @@ export default class App extends Component {
       backdrop = <Backdrop click={this.backdropClickHandler} />;
     };
 
+    const getUTCDate = (origDate) => {
+      let date = new Date(origDate);
+    
+      return new Date(date.getTime() + date.getTimezoneOffset()*60*1000);
+    }
+
     return (
       <div className='App'>
         <Route
@@ -256,7 +259,7 @@ export default class App extends Component {
               component={(routeProps) =>
                 <CalendarDate
                   assignments={this.state.assignments.filter(assignment =>
-                    compareAsc(new Date(routeProps.match.params.date), parseISO(assignment.due_date, 'MM/dd/yyyy', new Date())) === 0
+                    getUTCDate(assignment.due_date).toString().slice(0, 15) === getUTCDate(routeProps.match.params.date).toString().slice(0, 15)
                   )}
                   {...routeProps}
                 />
