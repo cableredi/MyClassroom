@@ -64,7 +64,7 @@ export default class RegistrationForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    const { user_name, password, teacher_user_id } = e.target;
+    const { user_name, password, teacher_user_id, confirm_password } = e.target;
 
     this.setState({ error: null });
 
@@ -79,7 +79,9 @@ export default class RegistrationForm extends Component {
       .then(user => {
         user_name.value = ''
         password.value = ''
-        this.props.onRegistrationSuccess()
+        confirm_password.value = ''
+
+        this.setState({ error: 'Student Login Created' })
       })
       .catch(res => {
         this.setState({ error: res.error })

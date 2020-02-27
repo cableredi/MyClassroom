@@ -1,14 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import CalendarDate from './CalendarDate';
-import TokenService from '../../../Services/token-service';
+import AddStudentLogin from './AddStudentLogin';
+import TokenService from '../../Services/token-service';
 const jwt = require('jsonwebtoken');
 
-it.only('renders without crashing', () => {
+it('renders without crashing', () => {
   const div = document.createElement('div');
-
-  const assignmentsProps = [];
 
   const testUser = {
     user_name: 'test',
@@ -26,14 +23,6 @@ it.only('renders without crashing', () => {
 
   TokenService.saveAuthToken(expectedToken);
 
-  ReactDOM.render(
-    <BrowserRouter>
-      <CalendarDate 
-        classes={assignmentsProps} 
-        match={{params: {date: new Date()}, isExact: true, path: "", url: ""}}
-      />
-    </BrowserRouter>,
-    div
-  );
+  ReactDOM.render( <AddStudentLogin />, div );
   ReactDOM.unmountComponentAtNode(div);
 });
