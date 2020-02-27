@@ -256,7 +256,7 @@ export default class App extends Component {
               component={(routeProps) =>
                 <CalendarDate
                   assignments={this.state.assignments.filter(assignment =>
-                    compareAsc(new Date(routeProps.match.params.date), new Date(assignment.due_date)) === 0
+                    compareAsc( new Date(routeProps.match.params.date), new Date(assignment.due_date) == 0)
                   )}
                   {...routeProps}
                 />
