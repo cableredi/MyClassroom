@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import CalendarDate from './CalendarDate';
 
-it('renders without crashing', () => {
+it.only('renders without crashing', () => {
   const div = document.createElement('div');
 
   const assignmentsProps = [];

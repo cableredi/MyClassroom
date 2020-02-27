@@ -5,7 +5,7 @@ import getUTCDate from '../../Helpers/GetDates';
 
 import {
   format, endOfMonth, startOfWeek, addDays, startOfMonth, endOfWeek,
-  isSameMonth, isSameDay, addMonths, subMonths, isPast, isToday, compareAsc, isSameYear, parseISO
+  isSameMonth, isSameDay, addMonths, subMonths, isPast, isToday
 } from 'date-fns'
 
 import PropTypes from 'prop-types';
@@ -129,7 +129,7 @@ export default class Calendar extends Component {
 
     const display = assignments.filter(assignment => {
       const formattedDueDate = getUTCDate(assignment.due_date).toString().slice(0, 15);
-      
+
       return ( formattedDay === formattedDueDate );
     })
 
