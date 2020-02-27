@@ -33,7 +33,7 @@ import IdleService from '../../Services/idle-service';
 import { PrivateRoute } from '../Helpers/PrivateRoute';
 import PublicOnlyRoute from '../Helpers/PublicOnlyRoute';
 
-import { compareAsc } from 'date-fns'
+import { compareAsc, parseISO } from 'date-fns'
 
 
 export default class App extends Component {
@@ -256,7 +256,7 @@ export default class App extends Component {
               component={(routeProps) =>
                 <CalendarDate
                   assignments={this.state.assignments.filter(assignment =>
-                    compareAsc( new Date(routeProps.match.params.date), new Date(assignment.due_date) == 0)
+                    compareAsc(new Date(routeProps.match.params.date), parseISO(assignment.due_date, 'MM/dd/yyyy', new Date())) === 0
                   )}
                   {...routeProps}
                 />

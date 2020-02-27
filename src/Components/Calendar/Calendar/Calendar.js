@@ -4,7 +4,7 @@ import MyClassroomContext from '../../../Context/MyClassroomContext';
 
 import {
   format, endOfMonth, startOfWeek, addDays, startOfMonth, endOfWeek,
-  isSameMonth, isSameDay, addMonths, subMonths, isPast, isToday, compareAsc
+  isSameMonth, isSameDay, addMonths, subMonths, isPast, isToday, compareAsc, parseISO
 } from 'date-fns'
 
 import PropTypes from 'prop-types';
@@ -124,9 +124,14 @@ export default class Calendar extends Component {
    ***************************************/
   getAssignments = (day) => {
     const assignments = this.props.assignments;
+    let formattedDueDate = '';
   
     const display = assignments.filter(assignment => {
-      return ( compareAsc(new Date(day), new Date(assignment.due_date)) == 0 )
+      formattedDueDate = parseISO(assignment.due_date, 'MM/dd/yyyy', new Date());
+console.log('day', day);
+console.log('formattedDueDate', formattedDueDate);
+console.log('compare', compareAsc(day, formattedDueDate));
+      return ( compareAsc(day, formattedDueDate) === 0 )
     })
   
     function showAssignment(display) {
