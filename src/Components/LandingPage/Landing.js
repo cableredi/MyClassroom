@@ -26,7 +26,7 @@ export default class Landing extends Component {
   /***********************/
   handleSubmitJwtAuth = (user_name, password) => {
     this.setState({ error: null })
-    
+
     AuthApiService.postLogin({
       user_name: user_name,
       password: password,
@@ -37,7 +37,7 @@ export default class Landing extends Component {
       .catch(res => {
         this.setState({ error: res.error });
       })
-    }
+  }
 
   handleLoginSuccess = () => {
     const { history } = this.props;
@@ -118,18 +118,20 @@ export default class Landing extends Component {
           {this.state.error && <p className='error'>{this.state.error}</p>}
           <h1>Try it out</h1>
           <h2>Log in as either a teacher or student</h2>
-          <button
-            className='button'
-            onClick={() => { this.handleSubmitJwtAuth('teacher', 'teacher') }}
-          >
-            Teacher
-          </button>
-          <button
-            className='button'
-            onClick={() => { this.handleSubmitJwtAuth('student', 'student') }}
-          >
-            Student
-          </button>
+          <div className='form__button-group'>
+            <button
+              className='button'
+              onClick={() => { this.handleSubmitJwtAuth('teacher', 'teacher') }}
+            >
+              Teacher
+            </button>
+            <button
+              className='button'
+              onClick={() => { this.handleSubmitJwtAuth('student', 'student') }}
+            >
+              Student
+            </button>
+          </div>
         </div>
 
       </section>

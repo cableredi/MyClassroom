@@ -302,7 +302,7 @@ export default class UpdateAssignment extends Component {
               >
                 <option value=''>Class... </option>
                 {classOptions}
-                
+
               </select>
             </li>
             <li>{this.state.class_id.touched && <ValidateError message={ClassIdError.message} />}</li>
@@ -384,29 +384,31 @@ export default class UpdateAssignment extends Component {
               />
             </li>
             <li>{this.state.notes.touched && <ValidateError message={NotesError.message} />}</li>
-
-            <li className="form__button-group">
-              <button
-                type="button"
-                onClick={this.handleClickCancel}>
-                Cancel
-              </button>
-              {'  '}
-              <button
-                type="submit"
-                disabled={assignmentButtonDisabled}
-              >
-                Update
-              </button>
-              {'  '}
-              <button
-                type="button"
-                onClick={e => this.confirmDelete(e)}
-              >
-                Delete
-              </button>
-            </li>
           </ul>
+          <div className="form__button-group">
+            <button
+              type="button"
+              className="button"
+              onClick={this.handleClickCancel}>
+              Cancel
+                </button>
+            {'  '}
+            <button
+              type="submit"
+              className="button"
+              disabled={assignmentButtonDisabled}
+            >
+              Update
+                </button>
+            {'  '}
+            <button
+              type="button"
+              className="button"
+              onClick={e => this.confirmDelete(e)}
+            >
+              Delete
+              </button>
+          </div>
         </form>
       </section>
     )

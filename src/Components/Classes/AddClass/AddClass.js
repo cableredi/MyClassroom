@@ -232,19 +232,23 @@ export default class AddClass extends Component {
                 onChange={e => this.updateRoom(e.target.value)}
               />
             </li>
-
-            <li className="form__button-group">
-              <button type="button" onClick={this.handleClickCancel}>
-                Cancel
-              </button>
-              <button
-                type="submit"
-                disabled={classButtonDisabled}
-              >
-                Save
-              </button>
-            </li>
           </ul>
+          <div className="form__button-group">
+            <button
+              type="button"
+              className="button"
+              onClick={this.handleClickCancel}
+            >
+              Cancel
+              </button>
+            <button
+              type="submit"
+              className="button"
+              disabled={classButtonDisabled}
+            >
+              Save
+              </button>
+          </div>
         </form>
       </section>
     )

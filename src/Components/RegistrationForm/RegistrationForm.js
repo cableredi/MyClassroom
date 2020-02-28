@@ -220,9 +220,9 @@ export default class RegistrationForm extends Component {
     const ConfirmPasswordError = this.validateConfirmPassword();
 
     if (!UserNameError.error && !FirstNameError.error && !LastNameError.error && !RoleError.error && !PasswordError.error && !ConfirmPasswordError.error) {
-        registrationButtonDisabled = false;
+      registrationButtonDisabled = false;
     }
-    
+
     return (
       <form
         className="Registration__form"
@@ -238,24 +238,22 @@ export default class RegistrationForm extends Component {
               Are you a ....
                 <Required />
             </label>
-            <div className="radio">
-                <input
-                  type="radio"
-                  value="teacher"
-                  name='role'
-                  onChange={e => this.updateRole(e.target.value)}
-                />
-                Teacher
-            </div>
-            or
-              <div className="radio">
-                <input
-                  type="radio"
-                  value="student"
-                  name='role'
-                  onChange={e => this.updateRole(e.target.value)}
-                />
-                Student
+            <div className="form__radio">
+              <input
+                type="radio"
+                value="teacher"
+                name='role'
+                onChange={e => this.updateRole(e.target.value)}
+              />
+              Teacher
+              <div className='form__radio-label'>or</div>
+              <input
+                type="radio"
+                value="student"
+                name='role'
+                onChange={e => this.updateRole(e.target.value)}
+              />
+              Student
             </div>
           </li>
           <li>{this.state.role.touched && <ValidateError message={RoleError.message} />}</li>
@@ -334,15 +332,16 @@ export default class RegistrationForm extends Component {
             />
           </li>
           <li>{this.state.last_name.touched && <ValidateError message={LastNameError.message} />}</li>
-
+        </ul>
+        <div className='form__button-group'>
           <button
             className='button'
             type='submit'
             disabled={registrationButtonDisabled}
           >
             Register
-            </button>
-        </ul>
+          </button>
+        </div>
       </form>
     )
   }

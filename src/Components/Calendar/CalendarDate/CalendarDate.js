@@ -39,7 +39,7 @@ export default function CalendarDate(props) {
           <li>
             <div className='calendar-date__items-class'>Class: {assignment.class_name}</div>
             <div className='calendar-date__items-title'>Assignment: {assignment.title}</div>
-            <div className='calendar-date__items-notes'>Assignment Notes: {assignment.notes}</div>
+            <div className='calendar-date__items-notes'>{assignment.notes}</div>
           </li>
         </NavLink>
       )
@@ -48,7 +48,7 @@ export default function CalendarDate(props) {
         <li key={assignment.assignment_id}>
           <div className='calendar-date__items-class'>Class: {assignment.class_name}</div>
           <div className='calendar-date__items-title'>Assignment: {assignment.title}</div>
-          <div className='calendar-date__items-notes'>Assignment Notes: {assignment.notes}</div>
+          <div className='calendar-date__items-notes'>{assignment.notes}</div>
         </li>
       )
     };

@@ -310,19 +310,23 @@ export default class AddAssignment extends Component {
               </select>
             </li>
             <li>{this.state.category.touched && <ValidateError message={CategoryError.message} />}</li>
-
-            <li className="form__button-group">
-              <button type="button" onClick={this.handleClickCancel}>
-                Cancel
-              </button>
-              <button
-                type="submit"
-                disabled={assignmentButtonDisabled}
-              >
-                Save
-              </button>
-            </li>
           </ul>
+          <div className="form__button-group">
+            <button
+              type="button"
+              className="button"
+              onClick={this.handleClickCancel}
+            >
+              Cancel
+              </button>
+            <button
+              type="submit"
+              className="button"
+              disabled={assignmentButtonDisabled}
+            >
+              Save
+              </button>
+          </div>
         </form>
       </section>
     )

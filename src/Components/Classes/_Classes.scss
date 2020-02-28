@@ -4,7 +4,7 @@
 }
 
 .Class__form {
-  border: 1px solid black;
+  border: 1px solid $border-color;
   border-radius: 5px;
   box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.5);
   padding: 20px;
@@ -21,7 +21,7 @@
 }
 
 .classes li {
-  border: 1px solid black;
+  border: 1px solid $border-color;
   border-radius: 5px;
   margin: 10px;
   padding: 20px 30px;
@@ -46,10 +46,19 @@
 
 .classes-button {
   margin: 0 auto;
-  border: 1px solid black;
+  border: 1px solid $border-color;
   border-radius: 5px;
   padding: 5px;
   box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
   background-color: $bg-color;
   width: 150px;
+}
+
+.classes-button:hover {
+  background-color: $button_bg_color;
+  color: $text-hover-color;
+  box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
+  font-weight: 600;
+  transition: 0.3s;
+  border-radius: 5px;
 }

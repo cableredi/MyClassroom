@@ -51,7 +51,7 @@ h2 {
 .error {
   color: red;
   font-style: italic;
-  border: 1px solid black;
+  border: 1px solid $border-color;
   border-radius: 10px;
   padding: 5px;
   background-color: $bg-color;

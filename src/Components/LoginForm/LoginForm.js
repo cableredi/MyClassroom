@@ -51,7 +51,7 @@ export default class LoginForm extends Component {
     ev.preventDefault()
     this.setState({ error: null })
     const { user_name, password } = ev.target
-    
+
     AuthApiService.postLogin({
       user_name: user_name.value,
       password: password.value,
@@ -64,7 +64,7 @@ export default class LoginForm extends Component {
       .catch(res => {
         this.setState({ error: res.error });
       })
-    }
+  }
 
   /************************/
   /* Validate Form Fields */
@@ -144,15 +144,16 @@ export default class LoginForm extends Component {
             />
           </li>
           <li>{this.state.password.touched && <ValidateError message={PasswordError.message} />}</li>
-
+        </ul>
+        <div className='form__button-group'>
           <button
             className='button'
             type='submit'
             disabled={loginButtonDisabled}
           >
             Login
-            </button>
-        </ul>
+          </button>
+        </div>
       </form>
     )
   };

@@ -62,10 +62,6 @@
     padding: 10px;
   }
 
-  .form__button-group {
-    margin: 20px auto;
-  }
-
   .form__hint {
     font-style: italic;
     font-size: .8rem;
@@ -109,47 +105,113 @@
     padding: 5px;
     border: 1px solid $border-color;
     border-radius: 5px;
-    max-width: 500px;
   }
   
   .flex-outer li textarea {
     max-height: 200px;
   }
+
+  .form__radio input[type=radio] {
+    min-width: 20px;
+    max-width: 20px;
+    margin: 0px 10px;
+  }
+
+  .form__radio {
+    text-align: left;
+  }
+
+  .form__radio-label {
+    display: inline-block;
+    margin: 0 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
 }
 
 %buttons-shared {
-  .button,
-  .form__button-group button {
-    margin: 10px auto;
+  .button {
     background-color: $bg-color;
     width: 180px;
     padding: 10px 15px;
+    border: 1px solid $border-color;
     border-radius: 5px;
     box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.5);
     text-transform: uppercase;
+    margin: 0 10px;
   }
-  
+ 
   .button:hover,
-  .button:focus,
-  .form__button-group button:hover,
-  .form__button-group button:focus {
-    background-color: $toolbar-hover-color;
+  .button:focus {
+    background-color: $button_bg_color;
     color: $text-hover-color;
-    box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
     font-weight: 600;
     transition: 0.3s;
-    border-radius: 10px;
+    border-radius: 5px;
   }
+
+  .form__button-group {
+    margin: 20px auto;
+  }
+
 }
 
 @media (max-width: 400px) {
-	label {
-    text-align: center;
+  .flex-outer li {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .flex-outer li textarea {
+    margin: 0 auto;
+  }
+
+  .flex-outer > li > label {
+    display: block;
+    margin: 0 auto;
+  }
+
+  input {
+    margin: 0 auto;
+  }
+
+  .form__radio {
+    margin: 0 auto;
+  }
+
+
+}
+
+@media (min-width: 701px) {
+  .flex-outer > li > label {
+    max-width: 200px;
+    min-width: 150px;
+    text-align: right;
+  }
+
+  .flex-outer li input,
+  .flex-outer li textarea,
+  .form__radio {
+    max-width: 1000px;
+    min-width: 400px;
+    margin-left: 0;
   }
 }
 
-@media (min-width: 401px) {
-	label {
+@media (min-width: 850px) {
+  .flex-outer > li > label {
+    min-width: 300px;
     text-align: right;
   }
+
+  .flex-outer li input,
+  .flex-outer li textarea,
+  .form__radio {
+    max-width: 500px;
+    min-width: 400px;
+    margin-left: 0;
+  }
+
+
 }

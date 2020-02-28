@@ -1,9 +1,9 @@
-.Assignments__form {
+.AddStudentLogin__form {
   @extend %form-shared;
   @extend %buttons-shared;
 }
 
-.Assignments__form {
+.AddStudentLogin__form {
   border: 1px solid $border-color;
   border-radius: 5px;
   box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.5);

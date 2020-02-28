@@ -149,7 +149,7 @@ export default class RegistrationForm extends Component {
       <section className='section-page'>
         <h1>Create Student Login Information</h1>
         <form
-          className="Registration__form"
+          className="AddStudentLogin__form"
           onSubmit={this.handleSubmit}
         >
           <ul className="flex-outer">
@@ -158,7 +158,7 @@ export default class RegistrationForm extends Component {
             </li>
 
             <li>
-            <input type="hidden" name="teacher_user_id" value={teacherUserId} />
+              <input type="hidden" name="teacher_user_id" value={teacherUserId} />
             </li>
 
             <li>
@@ -205,7 +205,8 @@ export default class RegistrationForm extends Component {
               />
             </li>
             <li>{this.state.confirm_password.touched && <ValidateError message={ConfirmPasswordError.message} />}</li>
-
+          </ul>
+          <div className='form__button-group'>
             <button
               className='button'
               type='submit'
@@ -213,7 +214,7 @@ export default class RegistrationForm extends Component {
             >
               Create Student Login
             </button>
-          </ul>
+          </div>
         </form>
       </section>
     )

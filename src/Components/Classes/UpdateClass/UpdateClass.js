@@ -253,7 +253,7 @@ export default class UpdateClass extends Component {
           onSubmit={this.handleSubmit}
         >
           <div className="required">* Required Fields</div>
-          
+
           <ul className="flex-outer">
             <li>
               <input type="hidden" name="class_id" value={this.state.class_id.value} />
@@ -332,27 +332,29 @@ export default class UpdateClass extends Component {
                 onChange={e => this.updateRoom(e.target.value)}
               />
             </li>
-
-            <li className="form__button-group">
+          </ul>
+          <div className="form__button-group">
               <button
                 type="button"
+                className="button"
                 onClick={this.handleClickCancel}
               >
                 Cancel
               </button>
               <button
                 type="submit"
+                className="button"
                 disabled={classButtonDisabled}
               >
                 Save
               </button>
-              <button 
-                onClick={ e => this.confirmDelete(e) }
+              <button
+                className="button"
+                onClick={e => this.confirmDelete(e)}
               >
                 Delete
-              </button>  
-            </li>
-          </ul>
+              </button>
+            </div>
         </form>
       </section>
     )
