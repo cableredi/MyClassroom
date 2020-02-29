@@ -130,9 +130,8 @@ export default class UpdateAssignment extends Component {
       .then(res => {
         if (!res.ok)
           return res.json().then(error => Promise.reject(error))
-        return res.json()
       })
-      .then((updatedAssignment) => {
+      .then(() => {
         this.context.updateAssignment(updatedAssignment);
         this.props.history.push('/calendar');
       })
@@ -157,7 +156,7 @@ export default class UpdateAssignment extends Component {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${config.API_KEY}`
+        'Authorization': `bearer ${TokenService.getAuthToken()}`,
       }
     })
       .then(response => {
