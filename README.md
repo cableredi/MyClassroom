@@ -9,23 +9,22 @@ My Classroom is a simple and effective way for teachers/professors/tutors/etc to
 **Parents:** Just log in as your student and you can see what your child's assignments are to help keep them on track
 
 ## Check it out
-***
 [https://myclassroom.now.sh/](https://myclassroom.now.sh/)
 
 
 ## Screenshots
 ***
-#### Landing page: [https://myclassroom.now.sh/](https://myclassroom.now.sh/)
-![Landing Page](./src/Components/Images/Landing.png)
+#### Landing:
+![Landing](./src/Components/Images/Landing.png)
 
-#### Calendar page:
+#### Calendar:
 ![Calendar Page](./src/Components/Images/Calendar.png)
 
-#### List of Assignments per Day page:
-![List of Assignments per Day Page](./src/Components/Images/Calendar-Assignments.png)
+#### Assignments:
+![Assignments](./src/Components/Images/Calendar-Assignments.png)
 
 #### Classes page:
-![Classes Page](./src/Components/Images/Classes.png)
+![Classes](./src/Components/Images/Classes.png)
 
 
 ## MyClassroom API
@@ -95,11 +94,10 @@ POST /api/users
 ```
 
 ## Source Code
-```
-MyClassroom Client: [https://github.com/cableredi/MyClassroom](https://github.com/cableredi/MyClassroom)
+***MyClassroom Client:*** [https://github.com/cableredi/MyClassroom](https://github.com/cableredi/MyClassroom)
 
-MyClassroom API: [https://github.com/cableredi/myclassroom-api](https://github.com/cableredi/myclassroom-api)
-```
+***MyClassroom API:*** [https://github.com/cableredi/myclassroom-api](https://github.com/cableredi/myclassroom-api)
+
 
 ## Technology Used
 ```
