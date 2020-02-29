@@ -107,16 +107,22 @@ export default class Landing extends Component {
         </div>
 
         <div className='Landing__contents'>
-          <p>My Classroom is easy to use</p>
+          <h2>My Classroom is easy to use</h2>
           <p>
-            Teachers: Just add your assignments and your students will be able to see what's up next
+            <span className='bold'>Teachers</span>
+            <div>Just add your assignments and your students will be able to see what's coming up</div>
           </p>
+
           <p>
-            Students: Just log in and view the Calendar to see what is coming up
+            <span className='bold'>Students</span>
+            <div>Just log in and view the Calendar to see what assignments are due</div>
           </p>
+
           <p>
-            Parents: Just log in as your student and you can see what your child's assignments are to help keep them on track
+            <span className='bold'>Parents</span>
+            <div>Just log in as your student and you can see what your child's assignments are to help keep them on track</div>
           </p>
+
         </div>
 
         <div className='Landing__demo'>
