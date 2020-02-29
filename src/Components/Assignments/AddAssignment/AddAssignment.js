@@ -247,6 +247,7 @@ export default class AddAssignment extends Component {
                 placeholder="Due Date"
                 value={format(new Date(selectedDate), 'MM/dd/yyyy')}
                 onChange={e => this.updateDueDate(e.target.value)}
+                readOnly
                 required
               />
             </li>

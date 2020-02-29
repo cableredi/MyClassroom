@@ -318,6 +318,7 @@ export default class UpdateAssignment extends Component {
                 value={format(new Date(this.state.due_date.value), 'MM/dd/yyyy')}
                 placeholder="Due Date"
                 onChange={e => this.updateDueDate(e.target.value)}
+                readOnly
                 required
               />
             </li>
