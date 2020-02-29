@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import MyClassroomContext from '../../Context/MyClassroomContext';
-import LoginForm from '../LoginForm/LoginForm';
 import TokenService from '../../Services/token-service';
 import AuthApiService from '../../Services/auth-api-service';
 import IdleService from '../../Services/idle-service';
 import ClassesApiService from '../../Services/classes-api-service';
 import AssignmentsApiService from '../../Services/assignments-api-service';
+import CalendarPage from '../Images/Calendar.png';
+import AssignmentsPage from '../Images/Calendar-Assignments.png';
+import ClassesPage from '../Images/Classes.png';
 
 export default class Landing extends Component {
   static contextType = MyClassroomContext;
@@ -90,15 +92,18 @@ export default class Landing extends Component {
         </div>
 
         <div className="Landing__images">
-          <div className="Landing__image">
-            Image 1
-          </div>
-          <div className="Landing__image">
-            Image 2
-          </div>
-          <div className="Landing__image">
-            Image 3
-          </div>
+          <figure className="Landing__image">
+            <figcaption>Calendar Page</figcaption>
+            <img src={CalendarPage} alt='Calendar page' />
+          </figure>
+          <figure className="Landing__image">
+            <figcaption>Assignments Page</figcaption>
+            <img src={AssignmentsPage} alt='Assignments page' />
+          </figure>
+          <figure className="Landing__image">
+            <figcaption>Classes Page</figcaption>
+            <img src={ClassesPage} alt='Classes page' />
+          </figure>
         </div>
 
         <div className='Landing__contents'>

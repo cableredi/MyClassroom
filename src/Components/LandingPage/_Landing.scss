@@ -32,12 +32,41 @@
 }
 
 .Landing__image {
-  max-width: 300px;
+  max-width: 350px;
   font-size: 1.3em;
   margin: 0 auto;
-  padding: 20px;
+  padding: 5px;
   border: 1px solid $border-color;
   border-radius: 5px;
   box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
   line-height: 1.5em;
+  background-color: $bg-color;
+  height: 240px;
+}
+
+.Landing__image img {
+  width: 300px;
+  height: auto;
+}
+
+.Landing__image figcaption {
+  font-family: $font-stack;
+}
+
+@media (max-width: 400px) {
+	.Landing__image img {
+    width: 275px;
+  }
+
+  .Landing__image {
+    margin-top: 10px;
+  }
+
+  .Landing__demo .button {
+    margin-top: 10px;
+  }
+
+  .Landing__header {
+    font-size: 3em;
+  }
 }

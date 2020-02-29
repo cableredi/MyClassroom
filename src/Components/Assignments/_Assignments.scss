@@ -11,3 +11,9 @@
   max-width: 900px;
   background-color: $bg-color;
 }
+
+@media (max-width: 400px) {
+  .Assignments__form .button {
+    margin-top: 10px;
+  }
+}
