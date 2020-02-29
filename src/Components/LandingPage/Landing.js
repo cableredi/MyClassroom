@@ -93,15 +93,15 @@ export default class Landing extends Component {
 
         <div className="Landing__images">
           <figure className="Landing__image">
-            <figcaption>Calendar Page</figcaption>
+            <figcaption>Calendar</figcaption>
             <img src={CalendarPage} alt='Calendar page' />
           </figure>
           <figure className="Landing__image">
-            <figcaption>Assignments Page</figcaption>
+            <figcaption>Assignments</figcaption>
             <img src={AssignmentsPage} alt='Assignments page' />
           </figure>
           <figure className="Landing__image">
-            <figcaption>Classes Page</figcaption>
+            <figcaption>Classes</figcaption>
             <img src={ClassesPage} alt='Classes page' />
           </figure>
         </div>
@@ -138,7 +138,6 @@ export default class Landing extends Component {
             </button>
           </div>
         </div>
-
       </section>
     )
   }

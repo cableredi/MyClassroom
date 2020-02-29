@@ -30,13 +30,13 @@ My Classroom is easy to use
 
 ## MyClassroom API
 **/api/assignments**
-CRUD operations for assignments table
+CRUD operations for assignments
 
 **/api/classes/:**
-CRUD operations for classes table
+CRUD operations for classes
 
 **/api/users/:**
-Operations for users table
+CR operations for users
 
 **/api/auth/:**
 Validate Authorization

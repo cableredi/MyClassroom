@@ -77,7 +77,6 @@ export default function CalendarDate(props) {
       </ul>
 
       {userRole === 'teacher' ? checkDate(currentDate) : ''}
-
     </section>
   )
 }

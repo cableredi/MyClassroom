@@ -12,7 +12,7 @@
   border-radius: 5px;
   box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
   line-height: 1.5em;
-  background-color: $bg-color;
+  background-color: $button-bg-color;
 }
 
 .Landing__header {
@@ -28,20 +28,17 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  margin: 50px 0;
+  margin: 20px 0;
 }
 
 .Landing__image {
-  max-width: 350px;
-  font-size: 1.3em;
   margin: 0 auto;
-  padding: 5px;
+  padding: 20px;
   border: 1px solid $border-color;
   border-radius: 5px;
   box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
-  line-height: 1.5em;
-  background-color: $bg-color;
-  height: 240px;
+  background-color: $button-bg-color;
+  height: 280px;
 }
 
 .Landing__image img {
@@ -51,6 +48,8 @@
 
 .Landing__image figcaption {
   font-family: $font-stack;
+  font-size: 2em;
+  margin-bottom: 10px;
 }
 
 @media (max-width: 400px) {
@@ -60,6 +59,8 @@
 
   .Landing__image {
     margin-top: 10px;
+    padding: 10px;
+    height: 260px;
   }
 
   .Landing__demo .button {
@@ -68,5 +69,21 @@
 
   .Landing__header {
     font-size: 3em;
+  }
+}
+
+@media (min-width: 401px) {
+  .Landing__image {
+    padding: 20px;
+    height: 280px;
+    margin-top: 10px;
+  }
+}
+
+@media (min-width: 800px) {
+  .Landing__image {
+    margin-top: 20px;
+    padding: 20px;
+    height: 280px;
   }
 }

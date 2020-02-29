@@ -130,7 +130,7 @@ export default class Calendar extends Component {
     const display = assignments.filter(assignment => {
       const formattedDueDate = getUTCDate(assignment.due_date).toString().slice(0, 15);
 
-      return ( formattedDay === formattedDueDate );
+      return (formattedDay === formattedDueDate);
     })
 
     function showAssignment(display) {
@@ -177,10 +177,12 @@ export default class Calendar extends Component {
    ***************************************/
   render() {
     return (
-      <section className='Calendar'>
-        {this.renderHeader()}
-        {this.renderDays()}
-        {this.renderCells()}
+      <section className='section-page'>
+        <div className='Calendar'>
+          {this.renderHeader()}
+          {this.renderDays()}
+          {this.renderCells()}
+        </div>
       </section>
     );
   }
