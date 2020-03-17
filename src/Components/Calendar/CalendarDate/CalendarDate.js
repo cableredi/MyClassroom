@@ -31,17 +31,18 @@ export default function CalendarDate(props) {
   const determineUser = (assignment) => {
     if (userRole === 'teacher') {
       return (
-        <NavLink
-          key={assignment.assignment_id}
-          to={`/updateAssignment/${assignment.assignment_id}`}
-          className={'calendar__update'}
-        >
-          <li>
+        <li  key={assignment.assignment_id}>
+          <NavLink
+            to={`/updateAssignment/${assignment.assignment_id}`}
+            className={'calendar__update'}
+          >
+
             <div className='calendar-date__items-class'>Class: {assignment.class_name}</div>
             <div className='calendar-date__items-title'>Assignment: {assignment.title}</div>
             <div className='calendar-date__items-notes'>{assignment.notes}</div>
-          </li>
-        </NavLink>
+
+          </NavLink>
+        </li>
       )
     } else {
       return (

@@ -15,11 +15,11 @@
   border-radius: 5px;
   padding: 5px;
   box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
-  background-color: $bg-color;
+  background-color: $button-bg-color;
 }
 .calendar-date__return:hover,
 .calendar-date__button:hover {
-  background-color: $button_bg_color;
+  background-color: $button-hover-color;
   color: $text-hover-color;
   box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
   font-weight: 600;
@@ -63,9 +63,18 @@
   background-color: $bg-color;
 }
 
+.calendar-date__items a {
+  color: $text-color;
+}
+
+.calendar-date__items li:hover,
+.calendar-date__items li:focus {
+  background-color: $button-hover-color;
+}
+
 .calendar-date__items-class {
   font-weight: bold;
-  font-size: 1.1em;
+  font-size: 1.2em;
   margin-bottom: 15px;
 }
 

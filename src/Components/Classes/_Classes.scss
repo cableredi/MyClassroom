@@ -33,6 +33,7 @@
 
 .class-list__name {
   font-weight: 800;
+  font-size: 1.3em;
 }
 
 .class-list_items {
@@ -44,18 +45,27 @@
   font-weight: 700;
 }
 
+.classes a {
+  color: $text-color;
+}
+
+.classes li:hover,
+.classes li:focus {
+  background-color: $button-hover-color;
+}
+
 .classes-button {
   margin: 0 auto;
   border: 1px solid $border-color;
   border-radius: 5px;
   padding: 5px;
   box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
-  background-color: $bg-color;
+  background-color: $button-bg-color;
   width: 150px;
 }
 
 .classes-button:hover {
-  background-color: $button_bg_color;
+  background-color: $button-hover-color;
   color: $text-hover-color;
   box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
   font-weight: 600;
