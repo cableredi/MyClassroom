@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import MyClassroomContext from '../../../Context/MyClassroomContext';
 import ValidateError from '../../ValidateError/ValidateError';
-import TokenService from '../../../Services/token-service';
-import config from '../../../config';
+import AssignmentsApiService from "../../../Services/assignments-api-service";
 import { format } from 'date-fns';
 import PropTypes from 'prop-types';
 
@@ -119,18 +118,7 @@ export default class UpdateAssignment extends Component {
     };
 
     // update database, state, and go back to calendar
-    fetch(config.API_ENDPOINT_ASSIGNMENTS + `/${assignment_id}`, {
-      method: 'PATCH',
-      body: JSON.stringify(updatedAssignment),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `bearer ${TokenService.getAuthToken()}`,
-      },
-    })
-      .then(res => {
-        if (!res.ok)
-          return res.json().then(error => Promise.reject(error))
-      })
+    AssignmentsApiService.updateAssignment(updatedAssignment)
       .then(() => {
         this.context.updateAssignment(updatedAssignment);
         this.props.history.push('/calendar');
@@ -152,19 +140,8 @@ export default class UpdateAssignment extends Component {
   /* Handle form Delete Button */
   /*****************************/
   handleDelete = () => {
-    fetch(config.API_ENDPOINT_ASSIGNMENTS + `/${this.state.assignment_id.value}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `bearer ${TokenService.getAuthToken()}`,
-      }
-    })
-      .then(response => {
-        if (!response.ok) {
-          return response.json().then(error => {
-            throw error
-          })
-        }
+    AssignmentsApiService.deleteAssignment(this.state.assignment_id.value)
+      .then(() => {
         this.props.history.push('/calendar')
         this.context.deleteAssignment(this.state.assignment_id.value);
       })

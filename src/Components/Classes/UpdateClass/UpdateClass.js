@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import MyClassroomContext from '../../../Context/MyClassroomContext';
 import ValidateError from '../../ValidateError/ValidateError';
-import TokenService from '../../../Services/token-service';
-import config from '../../../config';
+import ClassesApiService from '../../../Services/classes-api-service';
 import PropTypes from 'prop-types';
 
 import { confirmAlert } from 'react-confirm-alert';
@@ -129,7 +128,6 @@ export default class UpdateClass extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.setState({ error: null })
-    const { class_id } = this.props.match.params
 
     //put fields in object
     const updatedSchoolClass = {
@@ -142,18 +140,7 @@ export default class UpdateClass extends Component {
       room: this.state.room.value,
     };
 
-    fetch(config.API_ENDPOINT_CLASSES + `/${class_id}`, {
-      method: 'PATCH',
-      body: JSON.stringify(updatedSchoolClass),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `bearer ${TokenService.getAuthToken()}`,
-      },
-    })
-      .then(res => {
-        if (!res.ok)
-          return res.json().then(error => Promise.reject(error))
-      })
+    ClassesApiService.updateClass(updatedSchoolClass)
       .then(() => {
         this.context.updateClass(updatedSchoolClass);
         this.props.history.push('/classes');
@@ -175,19 +162,8 @@ export default class UpdateClass extends Component {
   /* Handle form Delete Button */
   /*****************************/
   handleDelete = () => {
-    fetch(config.API_ENDPOINT_CLASSES + `/${this.state.class_id.value}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `bearer ${TokenService.getAuthToken()}`,
-      }
-    })
-      .then(response => {
-        if (!response.ok) {
-          return response.json().then(error => {
-            throw error
-          })
-        }
+    ClassesApiService.deleteClass(this.state.class_id.value)
+      .then(() => {
         this.context.deleteClass(this.state.class_id.value);
         this.context.deleteAssignmentClasses(this.state.class_id.value);
         this.props.history.push('/classes')
@@ -334,27 +310,27 @@ export default class UpdateClass extends Component {
             </li>
           </ul>
           <div className="form__button-group">
-              <button
-                type="button"
-                className="button"
-                onClick={this.handleClickCancel}
-              >
-                Cancel
+            <button
+              type="button"
+              className="button"
+              onClick={this.handleClickCancel}
+            >
+              Cancel
               </button>
-              <button
-                type="submit"
-                className="button"
-                disabled={classButtonDisabled}
-              >
-                Save
+            <button
+              type="submit"
+              className="button"
+              disabled={classButtonDisabled}
+            >
+              Save
               </button>
-              <button
-                className="button"
-                onClick={e => this.confirmDelete(e)}
-              >
-                Delete
+            <button
+              className="button"
+              onClick={e => this.confirmDelete(e)}
+            >
+              Delete
               </button>
-            </div>
+          </div>
         </form>
       </section>
     )

@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import MyClassroomContext from '../../../Context/MyClassroomContext';
 import ValidateError from '../../ValidateError/ValidateError';
-import TokenService from '../../../Services/token-service';
-import config from '../../../config';
+import ClassesApiService from '../../../Services/classes-api-service';
 
 const Required = () => (
   <span className='form__required'>*</span>
@@ -102,20 +101,7 @@ export default class AddClass extends Component {
     };
 
     // update database, state, and go back to classes list
-    fetch(config.API_ENDPOINT_CLASSES, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `bearer ${TokenService.getAuthToken()}`,
-      },
-      body: JSON.stringify(newSchoolClass)
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(response.status)
-        }
-        return response.json()
-      })
+    ClassesApiService.addClass(newSchoolClass)
       .then((data) => {
         this.context.addClass(data);
         this.props.history.push('/classes');

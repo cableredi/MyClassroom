@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import MyClassroomContext from '../../../Context/MyClassroomContext';
 import ValidateError from '../../ValidateError/ValidateError';
-import TokenService from '../../../Services/token-service';
-import config from '../../../config';
 import { format } from 'date-fns';
 import PropTypes from 'prop-types';
+import AssignmentsApiService from "../../../Services/assignments-api-service";
 
 const Required = () => (
   <span className='form__required'>*</span>
@@ -106,20 +105,7 @@ export default class AddAssignment extends Component {
       category: this.state.category.value,
     };
 
-    fetch(config.API_ENDPOINT_ASSIGNMENTS, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `bearer ${TokenService.getAuthToken()}`
-      },
-      body: JSON.stringify(assignment)
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(response.status)
-        }
-        return response.json()
-      })
+    AssignmentsApiService.addAssignment(assignment)
       .then((newAssignment) => {
         this.context.addAssignment(newAssignment);
         this.props.history.push('/calendar');
