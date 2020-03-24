@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { NavLink } from 'react-router-dom';
 import MyClassroomContext from '../../../Context/MyClassroomContext';
 import getUTCDate from '../../Helpers/GetDates';
+import ToolTip from '../../ToolTip/ToolTip';
 
 import {
   format, endOfMonth, startOfWeek, addDays, startOfMonth, endOfWeek,
@@ -9,6 +10,19 @@ import {
 } from 'date-fns'
 
 import PropTypes from 'prop-types';
+
+/***************************************
+ *  Get ToolTip information
+ ***************************************/
+function getToolTip(display, day) {
+  const output = display.map(schoolClass => {
+    return (
+      <li key={schoolClass.assignment_id}>{schoolClass.class_name}: {schoolClass.title}</li>
+    )
+  })
+
+  return <ul>{output}</ul>
+}
 
 export default class Calendar extends Component {
   static contextType = MyClassroomContext;
@@ -137,13 +151,15 @@ export default class Calendar extends Component {
       const className = display[0].class_name;
 
       return (
-        <>
+        <ToolTip
+          message={getToolTip(display, day)}
+        >
           {className}
           {display.length > 1
             ? <span className="Calendar__more">+{display.length - 1}</span>
             : ''
           }
-        </>
+        </ToolTip>
       )
     }
 

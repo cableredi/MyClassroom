@@ -23,7 +23,6 @@
   background: $neutral-color;
 }
 
-
 /* GRID */
 
 .Calendar__row {
@@ -114,7 +113,7 @@
   position: relative;
   height: 6em;
   border-right: 1px solid $border-color;
-  overflow: hidden;
+  //overflow: hidden;
   cursor: pointer;
   background: $neutral-color;
   transition: 0.25s ease-out;
@@ -212,7 +211,7 @@
 }
 
 @media (min-width: 401px) {
-  .Calendar__cell .Calendar__assignments {
+  .Calendar__cell .Calendar__assignments  {
     font-size: .70em;
   }
 }
