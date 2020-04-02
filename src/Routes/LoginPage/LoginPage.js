@@ -6,6 +6,7 @@ import AuthApiService from '../../Services/auth-api-service';
 import IdleService from '../../Services/idle-service';
 import ClassesApiService from '../../Services/classes-api-service';
 import AssignmentsApiService from '../../Services/assignments-api-service';
+import UsersApiService from '../../Services/users-api-service';
 
 export default class LoginPage extends Component {
   static contextType = MyClassroomContext;
@@ -50,11 +51,13 @@ export default class LoginPage extends Component {
     //Get all assignments from DB and update state
     const assignmentsRequest = AssignmentsApiService.getAll();
     const classesRequest = ClassesApiService.getAll();
+    const studentsRequest = UsersApiService.getStudents();
 
-    Promise.all([assignmentsRequest, classesRequest])
+    Promise.all([assignmentsRequest, classesRequest, studentsRequest])
       .then((values) => {
         this.context.setAssignments(values[0])
         this.context.setClasses(values[1])
+        this.context.setStudents(values[2])
 
         history.push('/calendar');
       })
