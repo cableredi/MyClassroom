@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import AddStudentLogin from './AddStudentLogin';
-import TokenService from '../../Services/token-service';
+import TokenService from '../../../Services/token-service';
 const jwt = require('jsonwebtoken');
 
 it('renders without crashing', () => {

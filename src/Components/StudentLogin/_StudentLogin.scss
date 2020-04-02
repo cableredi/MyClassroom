@@ -1,0 +1,42 @@
+.StudentLogin ul {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.StudentLogin li {
+  border: 1px solid $border-color;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 20px 30px;
+  max-width: 300px;
+  background: $bg-color;
+  box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
+  color: $text-color;
+}
+
+.StudentLogin-button {
+  margin: 0 auto;
+  border: 1px solid $border-color;
+  border-radius: 5px;
+  padding: 5px;
+  box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
+  background-color: $button-bg-color;
+  width: 150px;
+}
+
+.StudentLogin-button:hover {
+  background-color: $button-hover-color;
+  color: $text-hover-color;
+  box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.3);
+  font-weight: 600;
+  transition: 0.3s;
+  border-radius: 5px;
+}
+
+.StudentLogin__name {
+  font-weight: 700;
+  font-size: 1.1em;
+}

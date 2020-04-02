@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
-import ValidateError from '../ValidateError/ValidateError';
-import AuthApiService from '../../Services/auth-api-service';
-import TokenService from '../../Services/token-service';
+import MyClassroomContext from '../../../Context/MyClassroomContext';
+import ValidateError from '../../ValidateError/ValidateError';
+import AuthApiService from '../../../Services/auth-api-service';
+import TokenService from '../../../Services/token-service';
 
 const Required = () => (
   <span className='form__required'>*</span>
 );
 
 export default class RegistrationForm extends Component {
+  static contextType = MyClassroomContext;
+
   static defaultProps = {
     onRegistrationSuccess: () => { }
   }
@@ -64,7 +67,7 @@ export default class RegistrationForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    const { user_name, password, teacher_user_id, confirm_password } = e.target;
+    const { user_name, password, teacher_user_id } = e.target;
 
     this.setState({ error: null });
 
@@ -77,11 +80,8 @@ export default class RegistrationForm extends Component {
       teacher_user_id: teacher_user_id.value
     })
       .then(user => {
-        user_name.value = ''
-        password.value = ''
-        confirm_password.value = ''
-
-        this.setState({ error: 'Student Login Created' })
+        this.context.addStudent(user);
+        this.props.history.push(`/users/${user.user_id}`);
       })
       .catch(res => {
         this.setState({ error: res.error })
@@ -130,6 +130,10 @@ export default class RegistrationForm extends Component {
 
     return { error: false, message: '' }
   }
+
+  /*********************/
+  /* Render            */
+  /*********************/
 
   render() {
     const { error } = this.state;

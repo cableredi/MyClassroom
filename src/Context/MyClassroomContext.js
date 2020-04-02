@@ -13,6 +13,9 @@ const MyClassroomContext = React.createContext({
   updateClass: () => {},
   deleteClass: () => {},
   resetState: () => {},
+  students: [],
+  setStudents: () => {},
+  addStudent: () => {},
 });
 
 export default MyClassroomContext;
